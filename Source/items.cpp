@@ -2609,6 +2609,25 @@ void InitItems()
 	// BUGFIX: item get records not reset when resetting items (fixed).
 	initItemGetRecords();
 }
+/**
+ * @brief Returns the amount of mana from external sources that the player receives given madd amount of magic
+ * @param player 
+ * @param madd 
+ * @return 
+*/
+int CalcExtraMag(Player &player, int madd)
+{
+	if (player._pClass == HeroClass::Sorcerer) {
+		return madd /= 5;
+	}
+	if (IsAnyOf(player._pClass, HeroClass::Rogue, HeroClass::Monk)) {
+		return madd += madd / 2;
+	}
+	if (player._pClass == HeroClass::Bard) {
+		return madd += (madd / 4) + (madd / 2);
+	}
+	return madd;
+}
 
 void CalcPlrItemVals(Player &player, bool loadgfx)
 {
@@ -2835,16 +2854,6 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	}
 	ihp += (vadd << 6); // BUGFIX: blood boil can cause negative shifts here (see line 757)
 
-	if (player._pClass == HeroClass::Sorcerer) {
-		madd *= 2;
-	}
-	if (IsAnyOf(player._pClass, HeroClass::Rogue, HeroClass::Monk)) {
-		madd += madd / 2;
-	} else if (player._pClass == HeroClass::Bard) {
-		madd += (madd / 4) + (madd / 2);
-	}
-	imana += (madd << 6);
-
 	player._pMaxHP = ihp + player._pMaxHPBase;
 	player._pHitPoints = std::min(ihp + player._pHPBase, player._pMaxHP);
 
@@ -2852,8 +2861,21 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		SetPlayerHitPoints(player, 0);
 	}
 
+	int manaFromMag = CalcExtraMag(player, madd);
+	imana += manaFromMag << 6;
+
 	player._pMaxMana = imana + player._pMaxManaBase;
 	player._pMana = std::min(imana + player._pManaBase, player._pMaxMana);
+
+	int hpToMagic = clamp(((player._pMaxHP >> 6) - (player._pMaxMana >> 6)) / 2, 0, ((player._pMaxHP >> 6) - (player._pMaxMana >> 6)) / 2);
+	if (player.tookStoneShrine) {
+		player._pMagic += hpToMagic;
+
+		imana += CalcExtraMag(player, hpToMagic) << 6;
+
+		player._pMaxMana = imana + player._pMaxManaBase;
+		player._pMana = std::min(imana + player._pManaBase, player._pMaxMana);
+	}
 
 	player._pIFMinDam = fmin;
 	player._pIFMaxDam = fmax;
@@ -2965,6 +2987,15 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 			StripTopGold(player);
 	} else {
 		MaxGold = GOLD_MAX_LIMIT * 2;
+	}
+
+	if (player.tookStoneShrine) {
+		player._pHitPoints = clamp(player._pHitPoints - (hpToMagic << 6), 64, player._pHitPoints - (hpToMagic << 6));
+		player._pMaxHP -= hpToMagic << 6;
+	}
+	if (player.tookGlowShrine) {
+		player._pMana = 0;
+		player._pMaxMana = 0;
 	}
 
 	drawmanaflag = true;
@@ -4282,7 +4313,7 @@ void UseItem(int pnum, item_misc_id mid, spell_id spl)
 		int l = ((j / 2) + GenerateRnd(j)) << 6;
 		if (IsAnyOf(player._pClass, HeroClass::Warrior, HeroClass::Barbarian))
 			l *= 2;
-		if (player._pClass == HeroClass::Rogue)
+		if (IsAnyOf(player._pClass, HeroClass::Rogue, HeroClass::Monk, HeroClass::Bard))
 			l += l / 2;
 		player._pHitPoints = std::min(player._pHitPoints + l, player._pMaxHP);
 		player._pHPBase = std::min(player._pHPBase + l, player._pMaxHPBase);
@@ -4291,7 +4322,7 @@ void UseItem(int pnum, item_misc_id mid, spell_id spl)
 		l = ((j / 2) + GenerateRnd(j)) << 6;
 		if (player._pClass == HeroClass::Sorcerer)
 			l *= 2;
-		if (player._pClass == HeroClass::Rogue)
+		if (IsAnyOf(player._pClass, HeroClass::Rogue, HeroClass::Monk, HeroClass::Bard))
 			l += l / 2;
 		if ((player._pIFlags & ISPL_NOMANA) == 0) {
 			player._pMana = std::min(player._pMana + l, player._pMaxMana);
@@ -4346,13 +4377,22 @@ void UseItem(int pnum, item_misc_id mid, spell_id spl)
 		if (player._pSplLvl[spl] < MAX_SPELL_LEVEL)
 			player._pSplLvl[spl]++;
 		if ((player._pIFlags & ISPL_NOMANA) == 0) {
-			player._pMana += spelldata[spl].sManaCost << 6;
-			player._pMana = std::min(player._pMana, player._pMaxMana);
-			player._pManaBase += spelldata[spl].sManaCost << 6;
-			player._pManaBase = std::min(player._pManaBase, player._pMaxManaBase);
+			if (player.tookGlowShrine) {
+				player._pHitPoints += spelldata[spl].sManaCost << 6;
+				player._pHitPoints = std::min(player._pHitPoints, player._pMaxHP);
+				player._pHPBase += spelldata[spl].sManaCost << 6;
+				player._pHPBase = std::min(player._pHPBase, player._pMaxHPBase);
+			} else {
+				player._pMana += spelldata[spl].sManaCost << 6;
+				player._pMana = std::min(player._pMana, player._pMaxMana);
+				player._pManaBase += spelldata[spl].sManaCost << 6;
+				player._pManaBase = std::min(player._pManaBase, player._pMaxManaBase);
+			} 
 		}
 		if (pnum == MyPlayerId)
 			CalcPlrBookVals(player);
+		if (player.tookGlowShrine)
+			drawhpflag = true; 
 		drawmanaflag = true;
 		break;
 	case IMISC_MAPOFDOOM:

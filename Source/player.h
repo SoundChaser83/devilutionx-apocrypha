@@ -298,6 +298,10 @@ struct Player {
 	uint8_t pDiabloKillLevel;
 	_difficulty pDifficulty;
 	uint32_t pDamAcFlags;
+	/** New shrine flags */
+	bool tookStoneShrine = false;
+	bool tookSparkShrine = false;
+	bool tookGlowShrine = false;
 
 	void CalcScrolls();
 
@@ -411,6 +415,18 @@ struct Player {
 	 */
 	int GetArmor() const
 	{
+		if (_pClass == HeroClass::Warrior || _pClass == HeroClass::Barbarian)
+		{
+			if (IsWalking())
+				return 0;
+			return _pLevel * 5 + _pIBonusAC + _pIAC + _pDexterity / 5;
+		}			
+		if (_pClass == HeroClass::Monk || _pClass == HeroClass::Bard)
+		{
+			if (IsWalking())
+				return 0;
+			return _pLevel * 4 + _pIBonusAC + _pIAC + _pDexterity / 5;
+		}			
 		return _pIBonusAC + _pIAC + _pDexterity / 5;
 	}
 

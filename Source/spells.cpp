@@ -140,7 +140,7 @@ int GetManaAmount(Player &player, spell_id sn)
 	ma <<= 6;
 
 	if (gbIsHellfire && player._pClass == HeroClass::Sorcerer) {
-		ma /= 2;
+		ma /= 100;
 	} else if (player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Monk || player._pClass == HeroClass::Bard) {
 		ma -= ma / 4;
 	}
@@ -177,6 +177,13 @@ void UseMana(int id, spell_id sn)
 			break;
 #endif
 		ma = GetManaAmount(myPlayer, sn);
+		if (myPlayer.tookGlowShrine) {
+			myPlayer._pHitPoints -= ma;
+			myPlayer._pHPBase -= ma;
+			drawhpflag = true;
+			drawmanaflag = true;
+			break;
+		}
 		myPlayer._pMana -= ma;
 		myPlayer._pManaBase -= ma;
 		drawmanaflag = true;
@@ -211,7 +218,11 @@ SpellCheckResult CheckSpell(int id, spell_id sn, spell_type st, bool manaonly)
 	}
 
 	auto &player = Players[id];
-	if (player._pMana < GetManaAmount(player, sn)) {
+	if (player._pMana < GetManaAmount(player, sn) && !player.tookGlowShrine) {
+		return SpellCheckResult::Fail_NoMana;
+	}
+
+	if (player._pHitPoints - 64 <= GetManaAmount(player, sn) && player.tookGlowShrine) {
 		return SpellCheckResult::Fail_NoMana;
 	}
 

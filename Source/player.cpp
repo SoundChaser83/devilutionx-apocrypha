@@ -2449,7 +2449,7 @@ void CreatePlayer(int playerId, HeroClass c)
 
 	player._pMana = player._pMagic << 6;
 	if (player._pClass == HeroClass::Sorcerer) {
-		player._pMana *= 2;
+		player._pMana *= 1;
 	} else if (player._pClass == HeroClass::Bard) {
 		player._pMana += player._pMana * 3 / 4;
 	} else if (player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Monk) {
@@ -2592,7 +2592,7 @@ void NextPlrLevel(int pnum)
 	}
 
 	int mana = 128;
-	if (player._pClass == HeroClass::Warrior)
+	if (player._pClass == HeroClass::Warrior || player._pClass == HeroClass::Sorcerer)
 		mana = 64;
 	else if (player._pClass == HeroClass::Barbarian)
 		mana = 0;
@@ -3686,7 +3686,7 @@ void ModifyPlrMag(int p, int l)
 
 	int ms = l << 6;
 	if (player._pClass == HeroClass::Sorcerer) {
-		ms *= 2;
+		ms /= 5;
 	} else if (player._pClass == HeroClass::Bard) {
 		ms += ms / 2;
 	}
@@ -3780,7 +3780,7 @@ void SetPlrMag(Player &player, int v)
 
 	int m = v << 6;
 	if (player._pClass == HeroClass::Sorcerer) {
-		m *= 2;
+		m /= 5;
 	} else if (player._pClass == HeroClass::Bard) {
 		m += m / 2;
 	}

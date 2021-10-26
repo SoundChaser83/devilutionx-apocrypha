@@ -518,7 +518,10 @@ void LoadPlayer(LoadHelper &file, Player &player)
 	player.pDiabloKillLevel = file.NextLE<uint32_t>();
 	player.pDifficulty = static_cast<_difficulty>(file.NextLE<uint32_t>());
 	player.pDamAcFlags = file.NextLE<uint32_t>();
-	file.Skip(20); // Available bytes
+	player.tookStoneShrine = file.NextBool8();
+	player.tookSparkShrine = file.NextBool8();
+	player.tookGlowShrine = file.NextBool8();
+	file.Skip(17); // Available bytes
 	CalcPlrItemVals(player, false);
 
 	// Omit pointer _pNData
@@ -1208,7 +1211,10 @@ void SavePlayer(SaveHelper &file, const Player &player)
 	file.WriteLE<uint32_t>(player.pDiabloKillLevel);
 	file.WriteLE<uint32_t>(player.pDifficulty);
 	file.WriteLE<uint32_t>(player.pDamAcFlags);
-	file.Skip(20); // Available bytes
+	file.WriteLE<uint8_t>(player.tookStoneShrine ? 1 : 0);
+	file.WriteLE<uint8_t>(player.tookSparkShrine ? 1 : 0);
+	file.WriteLE<uint8_t>(player.tookGlowShrine ? 1 : 0);
+	file.Skip(17); // Available bytes
 
 	// Omit pointer _pNData
 	// Omit pointer _pWData
