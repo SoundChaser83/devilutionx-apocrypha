@@ -259,7 +259,7 @@ bool MonsterMHit(int pnum, int m, int mindam, int maxdam, int dist, missile_id t
 
 	int dam;
 	if (t == MIS_BONESPIRIT) {
-		dam = monster._mhitpoints / 3 >> 6;
+		dam = (monster._mhitpoints - 64) >> 6;
 	} else {
 		dam = mindam + GenerateRnd(maxdam - mindam + 1);
 	}
@@ -384,7 +384,7 @@ bool Plr2PlrMHit(int pnum, int p, int mindam, int maxdam, int dist, missile_id m
 
 	int dam;
 	if (mtype == MIS_BONESPIRIT) {
-		dam = target._pHitPoints / 3;
+		dam = target._pHitPoints - 1;
 	} else {
 		dam = mindam + GenerateRnd(maxdam - mindam + 1);
 		if (MissilesData[mtype].mType == 0)
@@ -1190,7 +1190,7 @@ bool PlayerMHit(int pnum, Monster *monster, int dist, int mind, int maxd, missil
 
 	int dam;
 	if (mtype == MIS_BONESPIRIT) {
-		dam = player._pHitPoints / 3;
+		dam = player._pHitPoints - 1;
 	} else {
 		if (!shift) {
 			dam = (mind << 6) + GenerateRnd((maxd - mind + 1) << 6);

@@ -1588,7 +1588,7 @@ void DrawSpellBook(const Surface &out)
 						strcpy(tempstr, fmt::format(_(/* TRANSLATORS: Dam refers to damage. UI constrains, keep short please.*/ "Mana: {:d}   Dam: n/a"), mana).c_str());
 					}
 				} else {
-					strcpy(tempstr, fmt::format(_(/* TRANSLATORS: Dam refers to damage. UI constrains, keep short please.*/ "Mana: {:d}  Dam: 1/3 tgt hp"), mana).c_str());
+					strcpy(tempstr, fmt::format(_(/* TRANSLATORS: Dam refers to damage. UI constrains, keep short please.*/ "Mana: {:d}  Dam: Tgt HP - 1"), mana).c_str());
 				}
 				PrintSBookStr(out, { 10, yp }, tempstr);
 				int lvl = std::max(myPlayer._pSplLvl[sn] + myPlayer._pISplLvlAdd, 0);
