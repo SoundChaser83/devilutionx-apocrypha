@@ -298,7 +298,9 @@ struct Player {
 	uint8_t pDiabloKillLevel;
 	_difficulty pDifficulty;
 	uint32_t pDamAcFlags;
-	/** New shrine flags */
+	/* New Spectral Elixir flag*/
+	bool tookSpecElix = false;
+	/* New shrine flags */
 	bool tookStoneShrine = false;
 	bool tookMagShrine = false;
 	bool tookGlowShrine = false;

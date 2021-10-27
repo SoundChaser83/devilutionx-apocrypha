@@ -968,7 +968,7 @@ void GetDamageAmt(int i, int *mind, int *maxd)
 		*maxd = *mind + 9;
 		break;
 	case SPL_FLARE:
-		*mind = (myPlayer._pMagic / 2) + 3 * sl - (myPlayer._pMagic / 8);
+		*mind = 4 + sl + myPlayer._pLevel;
 		*maxd = *mind;
 		break;
 	}
@@ -2290,7 +2290,7 @@ void AddFlare(Missile &missile, Point dst, Direction midir)
 	missile._mlid = AddLight(missile.position.start, 8);
 	if (missile._micaster == TARGET_MONSTERS) {
 		UseMana(missile._misource, SPL_FLARE);
-		ApplyPlrDamage(missile._misource, 5);
+		ApplyPlrDamage(missile._misource, 1);
 	} else if (missile._misource > 0) {
 		auto &monster = Monsters[missile._misource];
 		if (monster.MType->mtype == MT_SUCCUBUS)
@@ -2954,7 +2954,7 @@ void MI_Firebolt(Missile &missile)
 					d = GenerateRnd(10) + (player._pMagic / 8) + missile._mispllvl + 1;
 					break;
 				case MIS_FLARE:
-					d = 3 * missile._mispllvl - (player._pMagic / 8) + (player._pMagic / 2);
+					d = 4 + missile._mispllvl + player._pLevel;
 					break;
 				case MIS_BONESPIRIT:
 					d = 0;

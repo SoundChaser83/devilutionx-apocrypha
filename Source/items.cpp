@@ -2716,6 +2716,13 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		}
 	}
 
+	if (player.tookSpecElix) {
+		sadd += 3;
+		madd += 3;
+		dadd += 3;
+		vadd += 3;
+	}
+
 	if (player.tookMagShrine) {
 		iflgs |= ISPL_DRAINLIFE;
 	}
@@ -4426,10 +4433,8 @@ void UseItem(int pnum, item_misc_id mid, spell_id spl)
 		NewCursor(CURSOR_OIL);
 		break;
 	case IMISC_SPECELIX:
-		ModifyPlrStr(pnum, 3);
-		ModifyPlrMag(pnum, 3);
-		ModifyPlrDex(pnum, 3);
-		ModifyPlrVit(pnum, 3);
+		player.tookSpecElix = true;
+		CalcPlrInv(player, true);
 		break;
 	case IMISC_RUNEF:
 		player._pTSpell = SPL_RUNEFIRE;
