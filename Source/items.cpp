@@ -2716,6 +2716,10 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		}
 	}
 
+	if (player.tookMagShrine) {
+		iflgs |= ISPL_DRAINLIFE;
+	}
+
 	if (mind == 0 && maxd == 0) {
 		mind = 1;
 		maxd = 1;
@@ -2992,6 +2996,7 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	if (player.tookStoneShrine) {
 		player._pHitPoints = clamp(player._pHitPoints - (hpToMagic << 6), 64, player._pHitPoints - (hpToMagic << 6));
 		player._pMaxHP -= hpToMagic << 6;
+		player._pDexterity = 0;
 	}
 	if (player.tookGlowShrine) {
 		player._pMana = 0;

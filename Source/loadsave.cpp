@@ -519,7 +519,7 @@ void LoadPlayer(LoadHelper &file, Player &player)
 	player.pDifficulty = static_cast<_difficulty>(file.NextLE<uint32_t>());
 	player.pDamAcFlags = file.NextLE<uint32_t>();
 	player.tookStoneShrine = file.NextBool8();
-	player.tookSparkShrine = file.NextBool8();
+	player.tookMagShrine = file.NextBool8();
 	player.tookGlowShrine = file.NextBool8();
 	file.Skip(17); // Available bytes
 	CalcPlrItemVals(player, false);
@@ -1212,7 +1212,7 @@ void SavePlayer(SaveHelper &file, const Player &player)
 	file.WriteLE<uint32_t>(player.pDifficulty);
 	file.WriteLE<uint32_t>(player.pDamAcFlags);
 	file.WriteLE<uint8_t>(player.tookStoneShrine ? 1 : 0);
-	file.WriteLE<uint8_t>(player.tookSparkShrine ? 1 : 0);
+	file.WriteLE<uint8_t>(player.tookMagShrine ? 1 : 0);
 	file.WriteLE<uint8_t>(player.tookGlowShrine ? 1 : 0);
 	file.Skip(17); // Available bytes
 

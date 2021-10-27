@@ -300,7 +300,7 @@ struct Player {
 	uint32_t pDamAcFlags;
 	/** New shrine flags */
 	bool tookStoneShrine = false;
-	bool tookSparkShrine = false;
+	bool tookMagShrine = false;
 	bool tookGlowShrine = false;
 
 	void CalcScrolls();

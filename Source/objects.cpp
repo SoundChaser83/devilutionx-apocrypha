@@ -2751,7 +2751,9 @@ bool OperateShrineMagical(int pnum)
 
 	auto &player = Players[pnum];
 
-	AddMissile(
+	player.tookMagShrine = true;
+
+	/* AddMissile(
 	    player.position.tile,
 	    player.position.tile,
 	    player._pdir,
@@ -2762,7 +2764,7 @@ bool OperateShrineMagical(int pnum)
 	    2 * leveltype);
 
 	if (pnum != MyPlayerId)
-		return false;
+		return false;*/
 
 	InitDiabloMsg(EMSG_SHRINE_MAGICAL);
 
