@@ -301,9 +301,9 @@ struct Player {
 	/* New Spectral Elixir flag*/
 	bool tookSpecElix = false;
 	/* New shrine flags */
-	bool tookStoneShrine = false;
-	bool tookMagShrine = false;
-	bool tookGlowShrine = false;
+	bool tookDilapShrine = false;
+	bool tookAlluringShrine = false;
+	bool tookFrigidShrine = false;
 
 	void CalcScrolls();
 

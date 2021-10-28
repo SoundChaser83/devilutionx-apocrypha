@@ -65,9 +65,9 @@ enum shrine_type : uint8_t {
 	ShrineSacred,
 	ShrineSpiritual,
 	ShrineSpooky,
-	ShrineAbandoned,
-	ShrineCreepy,
-	ShrineQuiet,
+	ShrineFrigid,
+	ShrineAlluring,
+	ShrineDilapidated,
 	ShrineSecluded,
 	ShrineOrnate,
 	ShrineGlimmering,
@@ -120,9 +120,9 @@ const char *const ShrineNames[] = {
 	N_("Sacred"),
 	N_("Spiritual"),
 	N_("Spooky"),
-	N_("Abandoned"),
-	N_("Creepy"),
-	N_("Quiet"),
+	N_("Frigid"),
+	N_("Alluring"),
+	N_("Dilapidated"),
 	N_("Secluded"),
 	N_("Ornate"),
 	N_("Glimmering"),
@@ -158,9 +158,9 @@ char shrinemin[] = {
 	1, // Sacred
 	1, // Spiritual
 	1, // Spooky
-	1, // Abandoned
-	1, // Creepy
-	1, // Quiet
+	1, // Frigid
+	1, // Alluring
+	1, // Dilapidated
 	1, // Secluded
 	1, // Ornate
 	1, // Glimmering
@@ -198,9 +198,9 @@ char shrinemax[] = {
 	MAX_LVLS, // Sacred
 	MAX_LVLS, // Spiritual
 	MAX_LVLS, // Spooky
-	MAX_LVLS, // Abandoned
-	MAX_LVLS, // Creepy
-	MAX_LVLS, // Quiet
+	MAX_LVLS, // Frigid
+	MAX_LVLS, // Alluring
+	MAX_LVLS, // Dilapidated
 	MAX_LVLS, // Secluded
 	MAX_LVLS, // Ornate
 	MAX_LVLS, // Glimmering
@@ -2751,9 +2751,7 @@ bool OperateShrineMagical(int pnum)
 
 	auto &player = Players[pnum];
 
-	player.tookMagShrine = true;
-
-	/* AddMissile(
+	AddMissile(
 	    player.position.tile,
 	    player.position.tile,
 	    player._pdir,
@@ -2764,7 +2762,7 @@ bool OperateShrineMagical(int pnum)
 	    2 * leveltype);
 
 	if (pnum != MyPlayerId)
-		return false;*/
+		return false;
 
 	InitDiabloMsg(EMSG_SHRINE_MAGICAL);
 
@@ -2781,7 +2779,7 @@ bool OperateShrineStone(int pnum)
 	for (Item &item : PlayerItemsRange { Players[pnum] }) {
 		if (item._itype == ItemType::Staff)
 			item._iCharges = item._iMaxCharges; // belt items don't have charges?
-	}*/
+	}
 
 	InitDiabloMsg(EMSG_SHRINE_STONE);
 
@@ -3120,56 +3118,50 @@ bool OperateShrineSpooky(int pnum)
 	return true;
 }
 
-bool OperateShrineAbandoned(int pnum)
+bool OperateShrineFrigid(int pnum)
 {
 	if (deltaload)
 		return false;
 	if (pnum != MyPlayerId)
 		return false;
 
-	ModifyPlrDex(pnum, 2);
-	CheckStats(Players[pnum]);
+	auto &myPlayer = Players[MyPlayerId];
 
-	if (pnum != MyPlayerId)
-		return true;
+	myPlayer.tookFrigidShrine = true;
+	CalcPlrInv(myPlayer, true);
 
-	InitDiabloMsg(EMSG_SHRINE_ABANDONED);
+	InitDiabloMsg(EMSG_SHRINE_FRIGID);
 
 	return true;
 }
 
-bool OperateShrineCreepy(int pnum)
+bool OperateShrineAlluring(int pnum)
 {
 	if (deltaload)
 		return false;
-	if (pnum != MyPlayerId)
-		return false;
 
-	ModifyPlrStr(pnum, 2);
-	CheckStats(Players[pnum]);
+	auto &player = Players[pnum];
 
-	if (pnum != MyPlayerId)
-		return true;
+	player.tookAlluringShrine = true;
 
-	InitDiabloMsg(EMSG_SHRINE_CREEPY);
+	InitDiabloMsg(EMSG_SHRINE_ALLURING);
 
 	return true;
 }
 
-bool OperateShrineQuiet(int pnum)
+bool OperateShrineDilapidated(int pnum)
 {
 	if (deltaload)
 		return false;
 	if (pnum != MyPlayerId)
-		return false;
-
-	ModifyPlrVit(pnum, 2);
-	CheckStats(Players[pnum]);
-
-	if (pnum != MyPlayerId)
 		return true;
 
-	InitDiabloMsg(EMSG_SHRINE_QUIET);
+	auto &player = Players[pnum];
+
+	player.tookDilapShrine = true;
+	CalcPlrInv(player, true);
+
+	InitDiabloMsg(EMSG_SHRINE_DILAPIDATED);
 
 	return true;
 }
@@ -3339,10 +3331,7 @@ bool OperateShrineGlowing(int pnum)
 
 	auto &myPlayer = Players[MyPlayerId];
 
-	myPlayer.tookGlowShrine = true;
-	CalcPlrInv(myPlayer, true);
-
-	/*// Add 0-5 points to Magic (0.1% of the players XP)
+	// Add 0-5 points to Magic (0.1% of the players XP)
 	ModifyPlrMag(MyPlayerId, static_cast<int>(std::min<uint32_t>(myPlayer._pExperience / 1000, 5)));
 
 	// Take 5% of the players experience to offset the bonus, unless they're very low level in which case take all their experience.
@@ -3354,7 +3343,7 @@ bool OperateShrineGlowing(int pnum)
 	if (sgOptions.Gameplay.bExperienceBar)
 		force_redraw = 255;
 
-	CheckStats(Players[pnum]);*/
+	CheckStats(Players[pnum]);
 
 	InitDiabloMsg(EMSG_SHRINE_GLOWING);
 
@@ -3618,16 +3607,16 @@ void OperateShrine(int pnum, int i, _sfx_id sType)
 		if (!OperateShrineSpooky(pnum))
 			return;
 		break;
-	case ShrineAbandoned:
-		if (!OperateShrineAbandoned(pnum))
+	case ShrineFrigid:
+		if (!OperateShrineFrigid(pnum))
 			return;
 		break;
-	case ShrineCreepy:
-		if (!OperateShrineCreepy(pnum))
+	case ShrineAlluring:
+		if (!OperateShrineAlluring(pnum))
 			return;
 		break;
-	case ShrineQuiet:
-		if (!OperateShrineQuiet(pnum))
+	case ShrineDilapidated:
+		if (!OperateShrineDilapidated(pnum))
 			return;
 		break;
 	case ShrineSecluded:

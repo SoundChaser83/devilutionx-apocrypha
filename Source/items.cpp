@@ -2723,7 +2723,7 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		vadd += 3;
 	}
 
-	if (player.tookMagShrine) {
+	if (player.tookAlluringShrine) {
 		iflgs |= ISPL_DRAINLIFE;
 	}
 
@@ -2879,7 +2879,7 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	player._pMana = std::min(imana + player._pManaBase, player._pMaxMana);
 
 	int hpToMagic = clamp(((player._pMaxHP >> 6) - (player._pMaxMana >> 6)) / 2, 0, ((player._pMaxHP >> 6) - (player._pMaxMana >> 6)) / 2);
-	if (player.tookStoneShrine) {
+	if (player.tookDilapShrine) {
 		player._pMagic += hpToMagic;
 
 		imana += CalcExtraMag(player, hpToMagic) << 6;
@@ -3000,12 +3000,12 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		MaxGold = GOLD_MAX_LIMIT * 2;
 	}
 
-	if (player.tookStoneShrine) {
+	if (player.tookDilapShrine) {
 		player._pHitPoints = clamp(player._pHitPoints - (hpToMagic << 6), 64, player._pHitPoints - (hpToMagic << 6));
 		player._pMaxHP -= hpToMagic << 6;
 		player._pDexterity = 0;
 	}
-	if (player.tookGlowShrine) {
+	if (player.tookFrigidShrine) {
 		player._pMana = 0;
 		player._pMaxMana = 0;
 	}
@@ -4389,7 +4389,7 @@ void UseItem(int pnum, item_misc_id mid, spell_id spl)
 		if (player._pSplLvl[spl] < MAX_SPELL_LEVEL)
 			player._pSplLvl[spl]++;
 		if ((player._pIFlags & ISPL_NOMANA) == 0) {
-			if (player.tookGlowShrine) {
+			if (player.tookFrigidShrine) {
 				player._pHitPoints += spelldata[spl].sManaCost << 6;
 				player._pHitPoints = std::min(player._pHitPoints, player._pMaxHP);
 				player._pHPBase += spelldata[spl].sManaCost << 6;
@@ -4403,7 +4403,7 @@ void UseItem(int pnum, item_misc_id mid, spell_id spl)
 		}
 		if (pnum == MyPlayerId)
 			CalcPlrBookVals(player);
-		if (player.tookGlowShrine)
+		if (player.tookFrigidShrine)
 			drawhpflag = true; 
 		drawmanaflag = true;
 		break;

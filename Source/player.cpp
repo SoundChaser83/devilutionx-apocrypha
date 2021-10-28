@@ -2932,7 +2932,7 @@ void StartPlrHit(int pnum, int dam, bool forcehit)
 		}
 	} else if (dam >> 6 < player._pLevel && !forcehit) {
 		return;
-	} else if (player.tookMagShrine) {
+	} else if (player.tookAlluringShrine) {
 		return;
 	}
 
@@ -3307,7 +3307,7 @@ void ProcessPlayers()
 
 			if (pnum == MyPlayerId) {
 				if ((player._pIFlags & ISPL_DRAINLIFE) != 0 && currlevel != 0) {
-					if (player.tookMagShrine)
+					if (player.tookAlluringShrine)
 						ApplyPlrDamage(pnum, 0, 0, 80);
 					else
 						ApplyPlrDamage(pnum, 0, 0, 4);

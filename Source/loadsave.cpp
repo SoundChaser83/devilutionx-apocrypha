@@ -519,9 +519,9 @@ void LoadPlayer(LoadHelper &file, Player &player)
 	player.pDifficulty = static_cast<_difficulty>(file.NextLE<uint32_t>());
 	player.pDamAcFlags = file.NextLE<uint32_t>();
 	player.tookSpecElix = file.NextBool8();
-	player.tookStoneShrine = file.NextBool8();
-	player.tookMagShrine = file.NextBool8();
-	player.tookGlowShrine = file.NextBool8();
+	player.tookDilapShrine = file.NextBool8();
+	player.tookAlluringShrine = file.NextBool8();
+	player.tookFrigidShrine = file.NextBool8();
 	file.Skip(16); // Available bytes
 	CalcPlrItemVals(player, false);
 
@@ -1213,9 +1213,9 @@ void SavePlayer(SaveHelper &file, const Player &player)
 	file.WriteLE<uint32_t>(player.pDifficulty);
 	file.WriteLE<uint32_t>(player.pDamAcFlags);
 	file.WriteLE<uint8_t>(player.tookSpecElix ? 1 : 0);
-	file.WriteLE<uint8_t>(player.tookStoneShrine ? 1 : 0);
-	file.WriteLE<uint8_t>(player.tookMagShrine ? 1 : 0);
-	file.WriteLE<uint8_t>(player.tookGlowShrine ? 1 : 0);
+	file.WriteLE<uint8_t>(player.tookDilapShrine ? 1 : 0);
+	file.WriteLE<uint8_t>(player.tookAlluringShrine ? 1 : 0);
+	file.WriteLE<uint8_t>(player.tookFrigidShrine ? 1 : 0);
 	file.Skip(16); // Available bytes
 
 	// Omit pointer _pNData

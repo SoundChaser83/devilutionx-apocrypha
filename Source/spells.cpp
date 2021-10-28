@@ -177,7 +177,7 @@ void UseMana(int id, spell_id sn)
 			break;
 #endif
 		ma = GetManaAmount(myPlayer, sn);
-		if (myPlayer.tookGlowShrine) {
+		if (myPlayer.tookFrigidShrine) {
 			myPlayer._pHitPoints -= ma;
 			myPlayer._pHPBase -= ma;
 			drawhpflag = true;
@@ -218,11 +218,11 @@ SpellCheckResult CheckSpell(int id, spell_id sn, spell_type st, bool manaonly)
 	}
 
 	auto &player = Players[id];
-	if (player._pMana < GetManaAmount(player, sn) && !player.tookGlowShrine) {
+	if (player._pMana < GetManaAmount(player, sn) && !player.tookFrigidShrine) {
 		return SpellCheckResult::Fail_NoMana;
 	}
 
-	if (player._pHitPoints - 64 <= GetManaAmount(player, sn) && player.tookGlowShrine) {
+	if (player._pHitPoints - 64 <= GetManaAmount(player, sn) && player.tookFrigidShrine) {
 		return SpellCheckResult::Fail_NoMana;
 	}
 
