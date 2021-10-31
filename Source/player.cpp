@@ -3712,6 +3712,7 @@ void ModifyPlrStr(int p, int l)
 	player._pStrength += l;
 	player._pBaseStr += l;
 
+	CalcSelfItems(player);
 	CalcPlrInv(player, true);
 
 	if (p == MyPlayerId) {
@@ -3748,6 +3749,7 @@ void ModifyPlrMag(int p, int l)
 		player._pMana += ms;
 	}
 
+	CalcSelfItems(player);
 	CalcPlrInv(player, true);
 
 	if (p == MyPlayerId) {
@@ -3769,6 +3771,8 @@ void ModifyPlrDex(int p, int l)
 
 	player._pDexterity += l;
 	player._pBaseDex += l;
+
+	CalcSelfItems(player);
 	CalcPlrInv(player, true);
 
 	if (p == MyPlayerId) {

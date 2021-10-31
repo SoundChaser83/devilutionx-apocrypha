@@ -46,10 +46,10 @@ bool LoadingMapObjects;
 namespace {
 
 enum shrine_type : uint8_t {
-	ShrineMysterious,
+	ShrineForsaken,
 	ShrineHidden,
 	ShrineGloomy,
-	ShrineWeird,
+	ShrineScorched,
 	ShrineMagical,
 	ShrineStone,
 	ShrineReligious,
@@ -101,10 +101,10 @@ int byadd[8] = { -1, -1, -1, 0, 0, 1, 1, 1 };
 /** Maps from shrine_id to shrine name. */
 const char *const ShrineNames[] = {
 	// TRANSLATORS: Shrine Name Block
-	N_("Mysterious"),
+	N_("Forsaken"),
 	N_("Hidden"),
 	N_("Gloomy"),
-	N_("Weird"),
+	N_("Scorched"),
 	N_("Magical"),
 	N_("Stone"),
 	N_("Religious"),
@@ -139,10 +139,10 @@ const char *const ShrineNames[] = {
 };
 /** Specifies the minimum dungeon level on which each shrine will appear. */
 char shrinemin[] = {
-	24, // Mysterious
+	1, // Forsaken
 	24, // Hidden
 	24, // Gloomy
-	24, // Weird
+	1, // Scorched
 	1, // Magical
 	1, // Stone
 	1, // Religious
@@ -179,10 +179,10 @@ char shrinemin[] = {
 
 /** Specifies the maximum dungeon level on which each shrine will appear. */
 char shrinemax[] = {
-	MAX_LVLS, // Mysterious
+	MAX_LVLS, // Forsaken
 	MAX_LVLS, // Hidden
 	MAX_LVLS, // Gloomy
-	MAX_LVLS, // Weird
+	MAX_LVLS, // Scorched
 	MAX_LVLS, // Magical
 	MAX_LVLS, // Stone
 	MAX_LVLS, // Religious
@@ -228,10 +228,10 @@ enum shrine_gametype : uint8_t {
 };
 
 shrine_gametype shrineavail[] = {
-	ShrineTypeAny,    // Mysterious
+	ShrineTypeAny,    // Forsaken
 	ShrineTypeAny,    // Hidden
 	ShrineTypeSingle, // Gloomy
-	ShrineTypeSingle, // Weird
+	ShrineTypeAny,    // Scorched
 	ShrineTypeAny,    // Magical
 	ShrineTypeAny,    // Stone
 	ShrineTypeAny,    // Religious
@@ -2586,36 +2586,66 @@ void OperatePedistal(int pnum, int i)
 	}
 }
 
-bool OperateShrineMysterious(int pnum)
+bool OperateShrineForsaken(int pnum)
 {
 	if (deltaload)
 		return false;
 	if (pnum != MyPlayerId)
 		return false;
 
-	ModifyPlrStr(pnum, -1);
-	ModifyPlrMag(pnum, -1);
-	ModifyPlrDex(pnum, -1);
-	ModifyPlrVit(pnum, -1);
+	auto &player = Players[pnum];
 
-	switch (static_cast<CharacterAttribute>(GenerateRnd(4))) {
-	case CharacterAttribute::Strength:
-		ModifyPlrStr(pnum, 6);
-		break;
-	case CharacterAttribute::Magic:
-		ModifyPlrMag(pnum, 6);
-		break;
-	case CharacterAttribute::Dexterity:
-		ModifyPlrDex(pnum, 6);
-		break;
-	case CharacterAttribute::Vitality:
-		ModifyPlrVit(pnum, 6);
-		break;
+	player._pBaseStr = StrengthTbl[static_cast<std::size_t>(player._pClass)];
+	player._pStrength = player._pBaseStr;
+
+	player._pBaseMag = MagicTbl[static_cast<std::size_t>(player._pClass)];
+	player._pMagic = player._pBaseMag;
+
+	player._pBaseDex = DexterityTbl[static_cast<std::size_t>(player._pClass)];
+	player._pDexterity = player._pBaseDex;
+
+	player._pBaseVit = VitalityTbl[static_cast<std::size_t>(player._pClass)];
+	player._pVitality = player._pBaseVit;
+
+	player._pBaseToBlk = BlockBonuses[static_cast<std::size_t>(player._pClass)];
+
+	player._pHitPoints = (player._pVitality + 10) << 6;
+	if (player._pClass == HeroClass::Warrior || player._pClass == HeroClass::Barbarian) {
+		player._pHitPoints *= 2;
+	} else if (player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Monk || player._pClass == HeroClass::Bard) {
+		player._pHitPoints += player._pHitPoints / 2;
 	}
+	if (player._pClass == HeroClass::Sorcerer)
+		player._pHitPoints += (player._pLevel - 1) * 64;
+	else
+		player._pHitPoints += (player._pLevel - 1) * 128;
 
-	CheckStats(Players[pnum]);
+	player._pMaxHP = player._pHitPoints;
+	player._pHPBase = player._pHitPoints;
+	player._pMaxHPBase = player._pHitPoints;
 
-	InitDiabloMsg(EMSG_SHRINE_MYSTERIOUS);
+	player._pMana = player._pMagic << 6;
+	if (player._pClass == HeroClass::Sorcerer) {
+		player._pMana *= 1;
+	} else if (player._pClass == HeroClass::Bard) {
+		player._pMana += player._pMana * 3 / 4;
+	} else if (player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Monk) {
+		player._pMana += player._pMana / 2;
+	}
+	if (player._pClass == HeroClass::Warrior || player._pClass == HeroClass::Sorcerer)
+		player._pMana += (player._pLevel - 1) * 64;
+	else if (player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Monk || player._pClass == HeroClass::Bard)
+		player._pMana += (player._pLevel - 1) * 128;
+
+	player._pMaxMana = player._pMana;
+	player._pManaBase = player._pMana;
+	player._pMaxManaBase = player._pMana;
+
+	player._pStatPts += (player._pLevel - 1) * 5;
+
+	CalcPlrInv(player, true);
+
+	InitDiabloMsg(EMSG_SHRINE_FORSAKEN);
 
 	return true;
 }
@@ -2711,7 +2741,7 @@ bool OperateShrineGloomy(int pnum)
 	return true;
 }
 
-bool OperateShrineWeird(int pnum)
+bool OperateShrineScorched(int pnum)
 {
 	if (deltaload)
 		return false;
@@ -2720,26 +2750,13 @@ bool OperateShrineWeird(int pnum)
 
 	auto &player = Players[pnum];
 
-	if (!player.InvBody[INVLOC_HAND_LEFT].isEmpty() && player.InvBody[INVLOC_HAND_LEFT]._itype != ItemType::Shield)
-		player.InvBody[INVLOC_HAND_LEFT]._iMaxDam++;
-	if (!player.InvBody[INVLOC_HAND_RIGHT].isEmpty() && player.InvBody[INVLOC_HAND_RIGHT]._itype != ItemType::Shield)
-		player.InvBody[INVLOC_HAND_RIGHT]._iMaxDam++;
+	player.tookDilapShrine = false;
+	player.tookAlluringShrine = false;
+	player.tookFrigidShrine = false;
+	player.tookAnointedShrine = false;
+	CalcPlrInv(player, true);
 
-	for (Item &item : InventoryPlayerItemsRange { player }) {
-		switch (item._itype) {
-		case ItemType::Sword:
-		case ItemType::Axe:
-		case ItemType::Bow:
-		case ItemType::Mace:
-		case ItemType::Staff:
-			item._iMaxDam++;
-			break;
-		default:
-			break;
-		}
-	}
-
-	InitDiabloMsg(EMSG_SHRINE_WEIRD);
+	InitDiabloMsg(EMSG_SHRINE_SCORCHED);
 
 	return true;
 }
@@ -3536,8 +3553,8 @@ void OperateShrine(int pnum, int i, _sfx_id sType)
 	}
 
 	switch (Objects[i]._oVar1) {
-	case ShrineMysterious:
-		if (!OperateShrineMysterious(pnum))
+	case ShrineForsaken:
+		if (!OperateShrineForsaken(pnum))
 			return;
 		break;
 	case ShrineHidden:
@@ -3548,8 +3565,8 @@ void OperateShrine(int pnum, int i, _sfx_id sType)
 		if (!OperateShrineGloomy(pnum))
 			return;
 		break;
-	case ShrineWeird:
-		if (!OperateShrineWeird(pnum))
+	case ShrineScorched:
+		if (!OperateShrineScorched(pnum))
 			return;
 		break;
 	case ShrineMagical:

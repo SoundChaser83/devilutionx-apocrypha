@@ -2975,6 +2975,15 @@ void CalcPlrInv(Player &player, bool loadgfx)
 		if (currlevel == 0)
 			RecalcStoreStats();
 	}
+	CheckAllBodyGearWearable(player);
+}
+
+void CheckAllBodyGearWearable(Player &player)
+{
+	for (auto &item : player.InvBody) {
+		if (player._pMagic < item._iMinMag || player._pStrength < item._iMinStr || player._pDexterity < item._iMinDex)
+			item._iStatFlag = false;
+	}
 }
 
 void SetPlrHandItem(Item &item, int itemData)
