@@ -1319,7 +1319,7 @@ void AddLightningRune(Missile &missile, Point dst, Direction /*midir*/)
 {
 	int id = missile._misource;
 	int lvl = (id > -1) ? Players[id]._pLevel : 0;
-	int dmg = 16 * (GenerateRndSum(10, 2) + lvl + 2);
+	int dmg = 8 * (GenerateRndSum(10, 2) + lvl + 2);
 	missile._midam = dmg;
 	AddRune(missile, dst, MIS_LIGHTWALL);
 }
@@ -2665,7 +2665,7 @@ void AddFlame(Missile &missile, Point dst, Direction /*midir*/)
 	missile._mlid = AddLight(missile.position.start, 1);
 	if (missile._micaster == TARGET_MONSTERS) {
 		int i = GenerateRnd(Players[missile._misource]._pLevel) + GenerateRnd(2);
-		missile._midam = 8 * i + 16 + ((8 * i + 16) / 2);
+		missile._midam = (12 * i + 24) * 6;
 	} else {
 		auto &monster = Monsters[missile._misource];
 		missile._midam = monster.mMinDamage + GenerateRnd(monster.mMaxDamage - monster.mMinDamage + 1);
@@ -3291,7 +3291,7 @@ void MI_LightningWallC(Missile &missile)
 
 	int id = missile._misource;
 	int lvl = (id > -1) ? Players[id]._pLevel : 0;
-	int dmg = 16 * (GenerateRndSum(10, 2) + lvl + 2);
+	int dmg = 8 * (GenerateRndSum(10, 2) + lvl + 2);
 
 	{
 		Point position = { missile.var1, missile.var2 };
@@ -3454,7 +3454,7 @@ void MI_Flash(Missile &missile)
 {
 	if (missile._micaster == TARGET_MONSTERS) {
 		if (missile._misource != -1)
-			Players[missile._misource]._pInvincible = true;
+			Players[missile._misource]._pInvincible = false;
 	}
 	missile._mirange--;
 
@@ -3476,7 +3476,7 @@ void MI_Flash2(Missile &missile)
 {
 	if (missile._micaster == TARGET_MONSTERS) {
 		if (missile._misource != -1)
-			Players[missile._misource]._pInvincible = true;
+			Players[missile._misource]._pInvincible = false;
 	}
 	missile._mirange--;
 

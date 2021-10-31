@@ -2397,6 +2397,50 @@ void SetPlrAnims(Player &player)
 	}
 }
 
+void CalcSelfItems(Player &player)
+{
+	int sa = 0;
+	int ma = 0;
+	int da = 0;
+	for (int i = 0; i < NUM_INVLOC; i++) {
+		auto &equipment = player.InvBody[i];
+		if (!equipment.isEmpty()) {
+			equipment._iStatFlag = true;
+			if (equipment._iIdentified) {
+				sa += equipment._iPLStr;
+				ma += equipment._iPLMag;
+				da += equipment._iPLDex;
+			}
+		}
+	}
+
+	bool changeflag;
+	do {
+		changeflag = false;
+		auto *pi = player.InvBody;
+		for (int i = 0; i < NUM_INVLOC; i++, pi++) {
+			if (!pi->isEmpty() && pi->_iStatFlag) {
+				bool sf = true;
+				if (sa + player._pBaseStr < pi->_iMinStr)
+					sf = false;
+				if (ma + player._pBaseMag < pi->_iMinMag)
+					sf = false;
+				if (da + player._pBaseDex < pi->_iMinDex)
+					sf = false;
+				if (!sf) {
+					changeflag = true;
+					pi->_iStatFlag = false;
+					if (pi->_iIdentified) {
+						sa -= pi->_iPLStr;
+						ma -= pi->_iPLMag;
+						da -= pi->_iPLDex;
+					}
+				}
+			}
+		}
+	} while (changeflag);
+}
+
 /**
  * @param c The hero class.
  */
@@ -2547,6 +2591,7 @@ void CreatePlayer(int playerId, HeroClass c)
 
 	InitDungMsgs(player);
 	CreatePlrItems(playerId);
+	CalcSelfItems(player);
 	SetRndSeed(0);
 }
 

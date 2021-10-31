@@ -59,7 +59,7 @@ enum shrine_type : uint8_t {
 	ShrineCryptic,
 	ShrineMagicaL2,
 	ShrineEldritch,
-	ShrineEerie,
+	ShrineAnointed,
 	ShrineDivine,
 	ShrineHoly,
 	ShrineSacred,
@@ -114,7 +114,7 @@ const char *const ShrineNames[] = {
 	N_("Cryptic"),
 	N_("Magical"),
 	N_("Eldritch"),
-	N_("Eerie"),
+	N_("Anointed"),
 	N_("Divine"),
 	N_("Holy"),
 	N_("Sacred"),
@@ -139,20 +139,20 @@ const char *const ShrineNames[] = {
 };
 /** Specifies the minimum dungeon level on which each shrine will appear. */
 char shrinemin[] = {
-	1, // Mysterious
-	1, // Hidden
-	1, // Gloomy
-	1, // Weird
+	24, // Mysterious
+	24, // Hidden
+	24, // Gloomy
+	24, // Weird
 	1, // Magical
 	1, // Stone
 	1, // Religious
-	1, // Enchanted
+	24, // Enchanted
 	1, // Thaumaturgic
 	1, // Fascinating
 	1, // Cryptic
 	1, // Magical
 	1, // Eldritch
-	1, // Eerie
+	1, // Anointed
 	1, // Divine
 	1, // Holy
 	1, // Sacred
@@ -164,14 +164,14 @@ char shrinemin[] = {
 	1, // Secluded
 	1, // Ornate
 	1, // Glimmering
-	1, // Tainted
-	1, // Oily
-	1, // Glowing
+	24, // Tainted
+	24, // Oily
+	24, // Glowing
 	1, // Mendicant's
 	1, // Sparkling
 	1, // Town
-	1, // Shimmering
-	1, // Solar,
+	24, // Shimmering
+	24, // Solar,
 	1, // Murphy's
 };
 
@@ -192,7 +192,7 @@ char shrinemax[] = {
 	MAX_LVLS, // Cryptic
 	MAX_LVLS, // Magical
 	MAX_LVLS, // Eldritch
-	MAX_LVLS, // Eerie
+	MAX_LVLS, // Anointed
 	MAX_LVLS, // Divine
 	MAX_LVLS, // Holy
 	MAX_LVLS, // Sacred
@@ -241,15 +241,15 @@ shrine_gametype shrineavail[] = {
 	ShrineTypeAny,    // Cryptic
 	ShrineTypeAny,    // Magical
 	ShrineTypeAny,    // Eldritch
-	ShrineTypeAny,    // Eerie
+	ShrineTypeAny,    // Anointed
 	ShrineTypeAny,    // Divine
 	ShrineTypeAny,    // Holy
 	ShrineTypeAny,    // Sacred
 	ShrineTypeAny,    // Spiritual
 	ShrineTypeMulti,  // Spooky
-	ShrineTypeAny,    // Abandoned
-	ShrineTypeAny,    // Creepy
-	ShrineTypeAny,    // Quiet
+	ShrineTypeAny,    // Frigid
+	ShrineTypeAny,    // Alluring
+	ShrineTypeAny,    // Dilapidated
 	ShrineTypeAny,    // Secluded
 	ShrineTypeAny,    // Ornate
 	ShrineTypeAny,    // Glimmering
@@ -2966,17 +2966,19 @@ bool OperateShrineEldritch(int pnum)
 	return true;
 }
 
-bool OperateShrineEerie(int pnum)
+bool OperateShrineAnointed(int pnum)
 {
 	if (deltaload)
 		return false;
 	if (pnum != MyPlayerId)
 		return false;
 
-	ModifyPlrMag(pnum, 2);
-	CheckStats(Players[pnum]);
+	auto &player = Players[pnum];
 
-	InitDiabloMsg(EMSG_SHRINE_EERIE);
+	player.tookAnointedShrine = true;
+	CalcPlrInv(player, true);
+
+	InitDiabloMsg(EMSG_SHRINE_ANOINTED);
 
 	return true;
 }
@@ -3583,8 +3585,8 @@ void OperateShrine(int pnum, int i, _sfx_id sType)
 		if (!OperateShrineEldritch(pnum))
 			return;
 		break;
-	case ShrineEerie:
-		if (!OperateShrineEerie(pnum))
+	case ShrineAnointed:
+		if (!OperateShrineAnointed(pnum))
 			return;
 		break;
 	case ShrineDivine:

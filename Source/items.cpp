@@ -464,50 +464,6 @@ void SpawnNote()
 	SpawnQuestItem(id, position, 0, 1);
 }
 
-void CalcSelfItems(Player &player)
-{
-	int sa = 0;
-	int ma = 0;
-	int da = 0;
-	for (int i = 0; i < NUM_INVLOC; i++) {
-		auto &equipment = player.InvBody[i];
-		if (!equipment.isEmpty()) {
-			equipment._iStatFlag = true;
-			if (equipment._iIdentified) {
-				sa += equipment._iPLStr;
-				ma += equipment._iPLMag;
-				da += equipment._iPLDex;
-			}
-		}
-	}
-
-	bool changeflag;
-	do {
-		changeflag = false;
-		auto *pi = player.InvBody;
-		for (int i = 0; i < NUM_INVLOC; i++, pi++) {
-			if (!pi->isEmpty() && pi->_iStatFlag) {
-				bool sf = true;
-				if (sa + player._pBaseStr < pi->_iMinStr)
-					sf = false;
-				if (ma + player._pBaseMag < pi->_iMinMag)
-					sf = false;
-				if (da + player._pBaseDex < pi->_iMinDex)
-					sf = false;
-				if (!sf) {
-					changeflag = true;
-					pi->_iStatFlag = false;
-					if (pi->_iIdentified) {
-						sa -= pi->_iPLStr;
-						ma -= pi->_iPLMag;
-						da -= pi->_iPLDex;
-					}
-				}
-			}
-		}
-	} while (changeflag);
-}
-
 bool ItemMinStats(const Player &player, Item &x)
 {
 	if (player._pMagic < x._iMinMag)
@@ -1632,40 +1588,13 @@ void SetupAllUseful(Item &item, int iseed, int lvl)
 	item._iSeed = iseed;
 	SetRndSeed(iseed);
 
-	if (gbIsHellfire) {
-		idx = GenerateRnd(7);
-		switch (idx) {
-		case 0:
-			idx = IDI_PORTAL;
-			if ((lvl <= 1))
-				idx = IDI_HEAL;
-			break;
-		case 1:
-		case 2:
-			idx = IDI_HEAL;
-			break;
-		case 3:
-			idx = IDI_PORTAL;
-			if ((lvl <= 1))
-				idx = IDI_MANA;
-			break;
-		case 4:
-		case 5:
-			idx = IDI_MANA;
-			break;
-		default:
-			idx = IDI_OIL;
-			break;
-		}
-	} else {
-		if (GenerateRnd(2) != 0)
-			idx = IDI_HEAL;
-		else
-			idx = IDI_MANA;
+	if (GenerateRnd(2) != 0)
+		idx = IDI_HEAL;
+	else
+		idx = IDI_MANA;
 
-		if (lvl > 1 && GenerateRnd(3) == 0)
-			idx = IDI_PORTAL;
-	}
+	if (lvl > 1 && GenerateRnd(3) == 0)
+		idx = IDI_PORTAL;
 
 	GetItemAttrs(item, idx, lvl);
 	item._iCreateInfo = lvl | CF_USEFUL;
@@ -2727,6 +2656,13 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		iflgs |= ISPL_DRAINLIFE;
 	}
 
+	if ((player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Sorcerer) && player.tookAnointedShrine) {
+		iflgs |= ISPL_FASTESTATTACK;
+		iflgs |= ISPL_FASTESTRECOVER;
+		iflgs |= ISPL_FASTBLOCK;
+		sadd += 50;
+	}
+
 	if (mind == 0 && maxd == 0) {
 		mind = 1;
 		maxd = 1;
@@ -2778,7 +2714,16 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	player._pStrength = std::max(0, sadd + player._pBaseStr);
 	player._pMagic = std::max(0, madd + player._pBaseMag);
 	player._pDexterity = std::max(0, dadd + player._pBaseDex);
+	if (player.tookDilapShrine)
+		vadd += player._pDexterity / 2;
 	player._pVitality = std::max(0, vadd + player._pBaseVit);
+
+	if ((player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Sorcerer) && player.tookAnointedShrine) {
+		player._pIBonusDam += player._pMagic;
+		player._pIBonusToHit += player._pDexterity / 2;
+		player._pBaseToBlk += player._pDexterity;
+		player._pIAC += player._pDexterity / 5;
+	}
 
 	if (player._pClass == HeroClass::Rogue) {
 		player._pDamageMod = player._pLevel * (player._pStrength + player._pDexterity) / 200;
@@ -3009,6 +2954,10 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		player._pMana = 0;
 		player._pMaxMana = 0;
 	}
+	if (player.tookAnointedShrine) {
+		player._pDexterity = 0;
+		player._pMagic = 0;
+	}
 
 	drawmanaflag = true;
 	drawhpflag = true;
@@ -3017,7 +2966,6 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 void CalcPlrInv(Player &player, bool loadgfx)
 {
 	CalcPlrItemMin(player);
-	CalcSelfItems(player);
 	CalcPlrItemVals(player, loadgfx);
 	CalcPlrItemMin(player);
 	if (&player == &Players[MyPlayerId]) {

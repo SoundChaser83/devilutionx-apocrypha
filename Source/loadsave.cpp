@@ -522,7 +522,8 @@ void LoadPlayer(LoadHelper &file, Player &player)
 	player.tookDilapShrine = file.NextBool8();
 	player.tookAlluringShrine = file.NextBool8();
 	player.tookFrigidShrine = file.NextBool8();
-	file.Skip(16); // Available bytes
+	player.tookAnointedShrine = file.NextBool8();
+	file.Skip(15); // Available bytes
 	CalcPlrItemVals(player, false);
 
 	// Omit pointer _pNData
@@ -1216,7 +1217,8 @@ void SavePlayer(SaveHelper &file, const Player &player)
 	file.WriteLE<uint8_t>(player.tookDilapShrine ? 1 : 0);
 	file.WriteLE<uint8_t>(player.tookAlluringShrine ? 1 : 0);
 	file.WriteLE<uint8_t>(player.tookFrigidShrine ? 1 : 0);
-	file.Skip(16); // Available bytes
+	file.WriteLE<uint8_t>(player.tookAnointedShrine ? 1 : 0);
+	file.Skip(15); // Available bytes
 
 	// Omit pointer _pNData
 	// Omit pointer _pWData

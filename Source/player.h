@@ -304,6 +304,7 @@ struct Player {
 	bool tookDilapShrine = false;
 	bool tookAlluringShrine = false;
 	bool tookFrigidShrine = false;
+	bool tookAnointedShrine = false;
 
 	void CalcScrolls();
 
@@ -423,7 +424,7 @@ struct Player {
 				return 0;
 			return _pLevel * 5 + _pIBonusAC + _pIAC + _pDexterity / 5;
 		}			
-		if (_pClass == HeroClass::Monk || _pClass == HeroClass::Bard)
+		if (_pClass == HeroClass::Monk || _pClass == HeroClass::Bard || tookAnointedShrine)
 		{
 			if (IsWalking())
 				return 0;
@@ -440,6 +441,8 @@ struct Player {
 		int hper = _pLevel + _pDexterity / 2 + _pIBonusToHit + BaseHitChance;
 		if (_pClass == HeroClass::Warrior)
 			hper += 20;
+		if ((_pClass == HeroClass::Rogue && tookAnointedShrine) || (_pClass == HeroClass::Sorcerer && tookAnointedShrine))
+			hper += 50;
 		return hper;
 	}
 
