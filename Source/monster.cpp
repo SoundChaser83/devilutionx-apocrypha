@@ -4924,7 +4924,7 @@ void SpawnGolem(int i, Point position, Missile &missile)
 	golem.position.future = position;
 	golem.position.old = position;
 	golem._pathcount = 0;
-	golem._mmaxhp = 2 * (320 * missile._mispllvl + player._pMaxMana / 3);
+	golem._mmaxhp = 32 * (320 * missile._mispllvl + player._pMaxMana / 3);
 	golem._mhitpoints = golem._mmaxhp;
 	golem.mArmorClass = 25;
 	golem.mHit = 5 * (missile._mispllvl + 8) + 2 * player._pLevel;

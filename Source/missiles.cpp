@@ -954,9 +954,9 @@ void GetDamageAmt(int i, int *mind, int *maxd)
 		*maxd = *mind * 6;
 		break;
 	case SPL_ELEMENT:
-		*mind = ScaleSpellEffect(2 * myPlayer._pLevel + 4, sl);
+		*mind = ScaleSpellEffect(6 * myPlayer._pLevel + 4, sl);
 		/// BUGFIX: add here '*mind /= 2;'
-		*maxd = ScaleSpellEffect(2 * myPlayer._pLevel + 40, sl);
+		*maxd = ScaleSpellEffect(6 * myPlayer._pLevel + 40, sl);
 		/// BUGFIX: add here '*maxd /= 2;'
 		break;
 	case SPL_CBOLT:
@@ -968,8 +968,8 @@ void GetDamageAmt(int i, int *mind, int *maxd)
 		*maxd = *mind + 9;
 		break;
 	case SPL_FLARE:
-		*mind = 4 + sl + myPlayer._pLevel;
-		*maxd = *mind;
+		*mind = 1;
+		*maxd = 2 * (sl + myPlayer._pLevel) + 7;
 		break;
 	}
 }
@@ -2471,7 +2471,7 @@ void AddElement(Missile &missile, Point dst, Direction midir)
 		dst += midir;
 	}
 
-	int dmg = 2 * (Players[missile._misource]._pLevel + GenerateRndSum(10, 2)) + 4;
+	int dmg = 6 * (Players[missile._misource]._pLevel + GenerateRndSum(10, 2)) + 4;
 	missile._midam = ScaleSpellEffect(dmg, missile._mispllvl) / 2;
 
 	UpdateMissileVelocity(missile, dst, 16);
@@ -2954,7 +2954,7 @@ void MI_Firebolt(Missile &missile)
 					d = GenerateRnd(10) + (player._pMagic / 8) + missile._mispllvl + 1;
 					break;
 				case MIS_FLARE:
-					d = 4 + missile._mispllvl + player._pLevel;
+					d = 1 + GenerateRnd(2 * (missile._mispllvl + player._pLevel) + 7);
 					break;
 				case MIS_BONESPIRIT:
 					d = 0;
@@ -4097,12 +4097,12 @@ void MI_Element(Missile &missile)
 		Point p = Players[id].position.tile;
 		ChangeLight(missile._mlid, missile.position.tile, missile._miAnimFrame);
 		if (!CheckBlock(p, c))
-			CheckMissileCol(missile, dam, dam, true, c, true);
+			CheckMissileCol(missile, 6 * dam, 6 * dam, true, c, true);
 
 		constexpr Displacement Offsets[] = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { 1, -1 }, { 1, 1 }, { -1, 0 }, { -1, 1 }, { -1, -1 } };
 		for (Displacement offset : Offsets) {
 			if (!CheckBlock(p, c + offset))
-				CheckMissileCol(missile, dam, dam, true, c + offset, true);
+				CheckMissileCol(missile, 6 * dam, 6 * dam, true, c + offset, true);
 		}
 
 		if (missile._mirange == 0) {
