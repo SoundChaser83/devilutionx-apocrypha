@@ -2538,6 +2538,7 @@ void InitItems()
 	// BUGFIX: item get records not reset when resetting items (fixed).
 	initItemGetRecords();
 }
+
 /**
  * @brief Returns the amount of mana from external sources that the player receives given madd amount of magic
  * @param player 
