@@ -2586,67 +2586,15 @@ void OperatePedistal(int pnum, int i)
 	}
 }
 
-bool OperateShrineForsaken(int pnum)
+bool OperateShrineForsaken(int pnum, Point spawnPosition)
 {
 	if (deltaload)
 		return false;
 	if (pnum != MyPlayerId)
 		return false;
 
-	auto &player = Players[pnum];
-
-	player._pBaseStr = StrengthTbl[static_cast<std::size_t>(player._pClass)];
-	player._pStrength = player._pBaseStr;
-
-	player._pBaseMag = MagicTbl[static_cast<std::size_t>(player._pClass)];
-	player._pMagic = player._pBaseMag;
-
-	player._pBaseDex = DexterityTbl[static_cast<std::size_t>(player._pClass)];
-	player._pDexterity = player._pBaseDex;
-
-	player._pBaseVit = VitalityTbl[static_cast<std::size_t>(player._pClass)];
-	player._pVitality = player._pBaseVit;
-
-	player._pBaseToBlk = BlockBonuses[static_cast<std::size_t>(player._pClass)];
-
-	player._pHitPoints = (player._pVitality + 10) << 6;
-	if (player._pClass == HeroClass::Warrior || player._pClass == HeroClass::Barbarian) {
-		player._pHitPoints *= 2;
-	} else if (player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Monk || player._pClass == HeroClass::Bard) {
-		player._pHitPoints += player._pHitPoints / 2;
-	}
-	if (player._pClass == HeroClass::Sorcerer)
-		player._pHitPoints += (player._pLevel - 1) * 64;
-	else
-		player._pHitPoints += (player._pLevel - 1) * 128;
-
-	player._pMaxHP = player._pHitPoints;
-	player._pHPBase = player._pHitPoints;
-	player._pMaxHPBase = player._pHitPoints;
-
-	player._pMana = player._pMagic << 6;
-	if (player._pClass == HeroClass::Sorcerer) {
-		player._pMana *= 1;
-	} else if (player._pClass == HeroClass::Bard) {
-		player._pMana += player._pMana * 3 / 4;
-	} else if (player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Monk) {
-		player._pMana += player._pMana / 2;
-	}
-	if (player._pClass == HeroClass::Warrior || player._pClass == HeroClass::Sorcerer)
-		player._pMana += (player._pLevel - 1) * 64;
-	else if (player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Monk || player._pClass == HeroClass::Bard)
-		player._pMana += (player._pLevel - 1) * 128;
-
-	player._pMaxMana = player._pMana;
-	player._pManaBase = player._pMana;
-	player._pMaxManaBase = player._pMana;
-
-	player._pStatPts += (player._pLevel - 1) * 5;
-
-	CalcPlrInv(player, true);
-
+	SetupBaseItem(spawnPosition, IDI_FORSTOME, false, false, true);
 	InitDiabloMsg(EMSG_SHRINE_FORSAKEN);
-
 	return true;
 }
 
@@ -2741,23 +2689,15 @@ bool OperateShrineGloomy(int pnum)
 	return true;
 }
 
-bool OperateShrineScorched(int pnum)
+bool OperateShrineScorched(int pnum, Point spawnPosition)
 {
 	if (deltaload)
 		return false;
 	if (pnum != MyPlayerId)
 		return true;
 
-	auto &player = Players[pnum];
-
-	player.tookDilapShrine = false;
-	player.tookAlluringShrine = false;
-	player.tookFrigidShrine = false;
-	player.tookAnointedShrine = false;
-	CalcPlrInv(player, true);
-
+	SetupBaseItem(spawnPosition, IDI_SCORTOME, false, false, true);
 	InitDiabloMsg(EMSG_SHRINE_SCORCHED);
-
 	return true;
 }
 
@@ -2983,25 +2923,15 @@ bool OperateShrineEldritch(int pnum)
 	return true;
 }
 
-bool OperateShrineAnointed(int pnum)
+bool OperateShrineAnointed(int pnum, Point spawnPosition)
 {
 	if (deltaload)
 		return false;
 	if (pnum != MyPlayerId)
 		return false;
 
-	auto &player = Players[pnum];
-
-	player.tookAnointedShrine = true;
-
-	for (int8_t &spellLevel : player._pSplLvl) {
-		spellLevel = 0;
-	}
-
-	CalcPlrInv(player, true);
-
+	SetupBaseItem(spawnPosition, IDI_ANOINTOME, false, false, true);
 	InitDiabloMsg(EMSG_SHRINE_ANOINTED);
-
 	return true;
 }
 
@@ -3142,51 +3072,37 @@ bool OperateShrineSpooky(int pnum)
 	return true;
 }
 
-bool OperateShrineFrigid(int pnum)
+bool OperateShrineFrigid(int pnum, Point spawnPosition)
 {
 	if (deltaload)
 		return false;
 	if (pnum != MyPlayerId)
 		return false;
 
-	auto &myPlayer = Players[MyPlayerId];
-
-	myPlayer.tookFrigidShrine = true;
-	CalcPlrInv(myPlayer, true);
-
+	SetupBaseItem(spawnPosition, IDI_FRIGTOME, false, false, true);
 	InitDiabloMsg(EMSG_SHRINE_FRIGID);
-
 	return true;
 }
 
-bool OperateShrineAlluring(int pnum)
+bool OperateShrineAlluring(int pnum, Point spawnPosition)
 {
 	if (deltaload)
 		return false;
 
-	auto &player = Players[pnum];
-
-	player.tookAlluringShrine = true;
-
+	SetupBaseItem(spawnPosition, IDI_ALLURTOME, false, false, true);
 	InitDiabloMsg(EMSG_SHRINE_ALLURING);
-
 	return true;
 }
 
-bool OperateShrineDilapidated(int pnum)
+bool OperateShrineDilapidated(int pnum, Point spawnPosition)
 {
 	if (deltaload)
 		return false;
 	if (pnum != MyPlayerId)
 		return true;
 
-	auto &player = Players[pnum];
-
-	player.tookDilapShrine = true;
-	CalcPlrInv(player, true);
-
+	SetupBaseItem(spawnPosition, IDI_DILAPTOME, false, false, true);
 	InitDiabloMsg(EMSG_SHRINE_DILAPIDATED);
-
 	return true;
 }
 
@@ -3559,7 +3475,7 @@ void OperateShrine(int pnum, int i, _sfx_id sType)
 
 	switch (Objects[i]._oVar1) {
 	case ShrineForsaken:
-		if (!OperateShrineForsaken(pnum))
+		if (!OperateShrineForsaken(pnum, Objects[i].position))
 			return;
 		break;
 	case ShrineHidden:
@@ -3571,7 +3487,7 @@ void OperateShrine(int pnum, int i, _sfx_id sType)
 			return;
 		break;
 	case ShrineScorched:
-		if (!OperateShrineScorched(pnum))
+		if (!OperateShrineScorched(pnum, Objects[i].position))
 			return;
 		break;
 	case ShrineMagical:
@@ -3608,7 +3524,7 @@ void OperateShrine(int pnum, int i, _sfx_id sType)
 			return;
 		break;
 	case ShrineAnointed:
-		if (!OperateShrineAnointed(pnum))
+		if (!OperateShrineAnointed(pnum, Objects[i].position))
 			return;
 		break;
 	case ShrineDivine:
@@ -3632,15 +3548,15 @@ void OperateShrine(int pnum, int i, _sfx_id sType)
 			return;
 		break;
 	case ShrineFrigid:
-		if (!OperateShrineFrigid(pnum))
+		if (!OperateShrineFrigid(pnum, Objects[i].position))
 			return;
 		break;
 	case ShrineAlluring:
-		if (!OperateShrineAlluring(pnum))
+		if (!OperateShrineAlluring(pnum, Objects[i].position))
 			return;
 		break;
 	case ShrineDilapidated:
-		if (!OperateShrineDilapidated(pnum))
+		if (!OperateShrineDilapidated(pnum, Objects[i].position))
 			return;
 		break;
 	case ShrineSecluded:

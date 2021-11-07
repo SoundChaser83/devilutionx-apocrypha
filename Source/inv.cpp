@@ -2158,7 +2158,8 @@ bool UseInvItem(int pnum, int cii)
 	}
 
 	int idata = ItemCAnimTbl[item->_iCurs];
-	if (item->_iMiscId == IMISC_BOOK)
+	if (item->_iMiscId == IMISC_BOOK || item->_iMiscId == IMISC_DILAPTOME || item->_iMiscId == IMISC_ALLURTOME || item->_iMiscId == IMISC_FRIGTOME ||
+		item->_iMiscId == IMISC_ANOINTOME || item->_iMiscId == IMISC_FORSTOME || item->_iMiscId == IMISC_SCORTOME)
 		PlaySFX(IS_RBOOK);
 	else if (pnum == MyPlayerId)
 		PlaySFX(ItemInvSnds[idata]);

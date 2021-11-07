@@ -1563,24 +1563,6 @@ void SetupAllItems(Item &item, int idx, int iseed, int lvl, int uper, bool onlyg
 	SetupItem(item);
 }
 
-void SetupBaseItem(Point position, int idx, bool onlygood, bool sendmsg, bool delta)
-{
-	if (ActiveItemCount >= MAXITEMS)
-		return;
-
-	int ii = AllocateItem();
-	auto &item = Items[ii];
-	GetSuperItemSpace(position, ii);
-	int curlv = ItemsGetCurrlevel();
-
-	SetupAllItems(item, idx, AdvanceRndSeed(), 2 * curlv, 1, onlygood, false, delta);
-
-	if (sendmsg)
-		NetSendCmdDItem(false, ii);
-	if (delta)
-		DeltaAddItem(ii);
-}
-
 void SetupAllUseful(Item &item, int iseed, int lvl)
 {
 	int idx;
@@ -1990,6 +1972,30 @@ void PrintItemMisc(Item &item)
 		AddPanelString(tempstr);
 	}
 	if (item._iMiscId == IMISC_BOOK) {
+		strcpy(tempstr, _("Right-click to read"));
+		AddPanelString(tempstr);
+	}
+	if (item._iMiscId == IMISC_DILAPTOME) {
+		strcpy(tempstr, _("Right-click to read"));
+		AddPanelString(tempstr);
+	}
+	if (item._iMiscId == IMISC_ALLURTOME) {
+		strcpy(tempstr, _("Right-click to read"));
+		AddPanelString(tempstr);
+	}
+	if (item._iMiscId == IMISC_FRIGTOME) {
+		strcpy(tempstr, _("Right-click to read"));
+		AddPanelString(tempstr);
+	}
+	if (item._iMiscId == IMISC_ANOINTOME) {
+		strcpy(tempstr, _("Right-click to read"));
+		AddPanelString(tempstr);
+	}
+	if (item._iMiscId == IMISC_FORSTOME) {
+		strcpy(tempstr, _("Right-click to read"));
+		AddPanelString(tempstr);
+	}
+	if (item._iMiscId == IMISC_SCORTOME) {
 		strcpy(tempstr, _("Right-click to read"));
 		AddPanelString(tempstr);
 	}
@@ -2653,10 +2659,6 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		vadd += 3;
 	}
 
-	if (player.tookAlluringShrine) {
-		iflgs |= ISPL_DRAINLIFE;
-	}
-
 	if ((player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Sorcerer) && player.tookAnointedShrine) {
 		iflgs |= ISPL_FASTESTATTACK;
 		iflgs |= ISPL_FASTESTRECOVER;
@@ -3317,6 +3319,24 @@ void SetupItem(Item &item)
 {
 	item.SetNewAnimation(Players[MyPlayerId].pLvlLoad == 0);
 	item._iIdentified = false;
+}
+
+void SetupBaseItem(Point position, int idx, bool onlygood, bool sendmsg, bool delta)
+{
+	if (ActiveItemCount >= MAXITEMS)
+		return;
+
+	int ii = AllocateItem();
+	auto &item = Items[ii];
+	GetSuperItemSpace(position, ii);
+	int curlv = ItemsGetCurrlevel();
+
+	SetupAllItems(item, idx, AdvanceRndSeed(), 2 * curlv, 1, onlygood, false, delta);
+
+	if (sendmsg)
+		NetSendCmdDItem(false, ii);
+	if (delta)
+		DeltaAddItem(ii);
 }
 
 int RndItem(const Monster &monster)
@@ -4375,6 +4395,82 @@ void UseItem(int pnum, item_misc_id mid, spell_id spl)
 		if (player.tookFrigidShrine)
 			drawhpflag = true; 
 		drawmanaflag = true;
+		break;
+	case IMISC_DILAPTOME:
+		player.tookDilapShrine = true;
+		CalcPlrInv(player, true);
+		break;
+	case IMISC_ALLURTOME:
+		player.tookAlluringShrine = true;
+		break;
+	case IMISC_FRIGTOME:
+		player.tookFrigidShrine = true;
+		CalcPlrInv(player, true);
+		break;
+	case IMISC_ANOINTOME:
+		player.tookAnointedShrine = true;
+		for (int8_t &spellLevel : player._pSplLvl) {
+			spellLevel = 0;
+		}
+		CalcPlrInv(player, true);
+		break;
+	case IMISC_FORSTOME:
+		player._pBaseStr = StrengthTbl[static_cast<std::size_t>(player._pClass)];
+		player._pStrength = player._pBaseStr;
+
+		player._pBaseMag = MagicTbl[static_cast<std::size_t>(player._pClass)];
+		player._pMagic = player._pBaseMag;
+
+		player._pBaseDex = DexterityTbl[static_cast<std::size_t>(player._pClass)];
+		player._pDexterity = player._pBaseDex;
+
+		player._pBaseVit = VitalityTbl[static_cast<std::size_t>(player._pClass)];
+		player._pVitality = player._pBaseVit;
+
+		player._pBaseToBlk = BlockBonuses[static_cast<std::size_t>(player._pClass)];
+
+		player._pHitPoints = (player._pVitality + 10) << 6;
+		if (player._pClass == HeroClass::Warrior || player._pClass == HeroClass::Barbarian) {
+			player._pHitPoints *= 2;
+		} else if (player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Monk || player._pClass == HeroClass::Bard) {
+			player._pHitPoints += player._pHitPoints / 2;
+		}
+		if (player._pClass == HeroClass::Sorcerer)
+			player._pHitPoints += (player._pLevel - 1) * 64;
+		else
+			player._pHitPoints += (player._pLevel - 1) * 128;
+
+		player._pMaxHP = player._pHitPoints;
+		player._pHPBase = player._pHitPoints;
+		player._pMaxHPBase = player._pHitPoints;
+
+		player._pMana = player._pMagic << 6;
+		if (player._pClass == HeroClass::Sorcerer) {
+			player._pMana *= 1;
+		} else if (player._pClass == HeroClass::Bard) {
+			player._pMana += player._pMana * 3 / 4;
+		} else if (player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Monk) {
+			player._pMana += player._pMana / 2;
+		}
+		if (player._pClass == HeroClass::Warrior || player._pClass == HeroClass::Sorcerer)
+			player._pMana += (player._pLevel - 1) * 64;
+		else if (player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Monk || player._pClass == HeroClass::Bard)
+			player._pMana += (player._pLevel - 1) * 128;
+
+		player._pMaxMana = player._pMana;
+		player._pManaBase = player._pMana;
+		player._pMaxManaBase = player._pMana;
+
+		player._pStatPts += (player._pLevel - 1) * 5;
+
+		CalcPlrInv(player, true);
+		break;
+	case IMISC_SCORTOME:
+		player.tookDilapShrine = false;
+		player.tookAlluringShrine = false;
+		player.tookFrigidShrine = false;
+		player.tookAnointedShrine = false;
+		CalcPlrInv(player, true);
 		break;
 	case IMISC_MAPOFDOOM:
 		doom_init();
