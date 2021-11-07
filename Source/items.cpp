@@ -2716,18 +2716,20 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	player._pMagic = std::max(0, madd + player._pBaseMag);
 	player._pDexterity = std::max(0, dadd + player._pBaseDex);
 	if (player.tookDilapShrine)
-		vadd += player._pDexterity / 2;
+		vadd += player._pDexterity - DexterityTbl[static_cast<std::size_t>(player._pClass)];
 	player._pVitality = std::max(0, vadd + player._pBaseVit);
 
 	if ((player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Sorcerer) && player.tookAnointedShrine) {
-		player._pIBonusDam += player._pMagic;
-		player._pIBonusToHit += player._pDexterity / 2;
-		player._pBaseToBlk += player._pDexterity;
+		player._pIBonusToHit += player._pDexterity;
+		player._pBaseToBlk = BlockBonuses[static_cast<std::size_t>(player._pClass)] + player._pDexterity;
 		player._pIAC += player._pDexterity / 5;
 	}
 
 	if (player._pClass == HeroClass::Rogue) {
-		player._pDamageMod = player._pLevel * (player._pStrength + player._pDexterity) / 200;
+		if (player.tookAnointedShrine)
+			player._pDamageMod = player._pLevel * (player._pStrength + player._pMagic) / 100;
+		else
+			player._pDamageMod = player._pLevel * (player._pStrength + player._pDexterity) / 200;
 	} else if (player._pClass == HeroClass::Monk) {
 		if (player.InvBody[INVLOC_HAND_LEFT]._itype != ItemType::Staff) {
 			if (player.InvBody[INVLOC_HAND_RIGHT]._itype != ItemType::Staff && (!player.InvBody[INVLOC_HAND_LEFT].isEmpty() || !player.InvBody[INVLOC_HAND_RIGHT].isEmpty())) {
@@ -2767,6 +2769,8 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 			player._pDamageMod += player._pLevel * player._pVitality / 100;
 		}
 		player._pIAC += player._pLevel / 4;
+	} else if (player._pClass == HeroClass::Sorcerer && player.tookAnointedShrine) {
+		player._pDamageMod = player._pLevel * (player._pStrength + player._pMagic) / 100;
 	} else {
 		player._pDamageMod = player._pLevel * player._pStrength / 100;
 	}
@@ -2806,8 +2810,12 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	} else if (player._pClass == HeroClass::Barbarian) {
 		vadd += vadd;
 		vadd += (vadd / 4);
-	} else if (IsAnyOf(player._pClass, HeroClass::Rogue, HeroClass::Monk, HeroClass::Bard)) {
+	} else if (IsAnyOf(player._pClass, HeroClass::Rogue, HeroClass::Monk, HeroClass::Bard) || (player._pClass == HeroClass::Sorcerer && player.tookAnointedShrine)) {
 		vadd += vadd / 2;
+	}
+	if (player._pClass == HeroClass::Sorcerer && player.tookAnointedShrine) {
+		ihp += (player._pBaseVit << 6) / 2 + (player._pLevel << 6) + 256;
+		ihp += (player._pMagic << 6) / 2;
 	}
 	ihp += (vadd << 6); // BUGFIX: blood boil can cause negative shifts here (see line 757)
 
@@ -2824,7 +2832,7 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	player._pMaxMana = imana + player._pMaxManaBase;
 	player._pMana = std::min(imana + player._pManaBase, player._pMaxMana);
 
-	int hpToMagic = clamp(((player._pMaxHP >> 6) - (player._pMaxMana >> 6)) / 2, 0, ((player._pMaxHP >> 6) - (player._pMaxMana >> 6)) / 2);
+	int hpToMagic = std::max(((player._pMaxHP >> 6) - (player._pMaxMana >> 6)) / 2, 0);
 	if (player.tookDilapShrine) {
 		player._pMagic += hpToMagic;
 
@@ -2947,7 +2955,7 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	}
 
 	if (player.tookDilapShrine) {
-		player._pHitPoints = clamp(player._pHitPoints - (hpToMagic << 6), 64, player._pHitPoints - (hpToMagic << 6));
+		player._pHitPoints = std::max(player._pHitPoints - (hpToMagic << 6), 64);
 		player._pMaxHP -= hpToMagic << 6;
 		player._pDexterity = 0;
 	}
@@ -2977,6 +2985,7 @@ void CalcPlrInv(Player &player, bool loadgfx)
 			RecalcStoreStats();
 	}
 	CheckAllBodyGearWearable(player);
+	CalcPlrItemVals(player, loadgfx);
 }
 
 void CheckAllBodyGearWearable(Player &player)
@@ -2984,6 +2993,8 @@ void CheckAllBodyGearWearable(Player &player)
 	for (auto &item : player.InvBody) {
 		if (player._pMagic < item._iMinMag || player._pStrength < item._iMinStr || player._pDexterity < item._iMinDex)
 			item._iStatFlag = false;
+		else
+			item._iStatFlag = true;
 	}
 }
 
@@ -4225,7 +4236,7 @@ void UseItem(int pnum, item_misc_id mid, spell_id spl)
 		int l = ((j / 2) + GenerateRnd(j)) << 6;
 		if (IsAnyOf(player._pClass, HeroClass::Warrior, HeroClass::Barbarian))
 			l *= 2;
-		if (IsAnyOf(player._pClass, HeroClass::Rogue, HeroClass::Monk, HeroClass::Bard))
+		if (IsAnyOf(player._pClass, HeroClass::Rogue, HeroClass::Monk, HeroClass::Bard) || (player._pClass == HeroClass::Sorcerer && player.tookAnointedShrine))
 			l += l / 2;
 		player._pHitPoints = std::min(player._pHitPoints + l, player._pMaxHP);
 		player._pHPBase = std::min(player._pHPBase + l, player._pMaxHPBase);

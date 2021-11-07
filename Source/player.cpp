@@ -3738,6 +3738,7 @@ void ModifyPlrMag(int p, int l)
 	int ms = l << 6;
 	if (player._pClass == HeroClass::Sorcerer) {
 		ms /= 5;
+		ms++;
 	} else if (player._pClass == HeroClass::Bard) {
 		ms += ms / 2;
 	}

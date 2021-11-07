@@ -2993,6 +2993,11 @@ bool OperateShrineAnointed(int pnum)
 	auto &player = Players[pnum];
 
 	player.tookAnointedShrine = true;
+
+	for (int8_t &spellLevel : player._pSplLvl) {
+		spellLevel = 0;
+	}
+
 	CalcPlrInv(player, true);
 
 	InitDiabloMsg(EMSG_SHRINE_ANOINTED);

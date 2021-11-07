@@ -418,13 +418,14 @@ struct Player {
 	 */
 	int GetArmor() const
 	{
-		if (_pClass == HeroClass::Warrior || _pClass == HeroClass::Barbarian)
+		if (_pClass == HeroClass::Warrior || _pClass == HeroClass::Barbarian ||
+			(_pClass == HeroClass::Rogue && tookAnointedShrine) || (_pClass == HeroClass::Sorcerer && tookAnointedShrine))
 		{
 			if (IsWalking())
 				return 0;
 			return _pLevel * 5 + _pIBonusAC + _pIAC + _pDexterity / 5;
 		}			
-		if (_pClass == HeroClass::Monk || _pClass == HeroClass::Bard || tookAnointedShrine)
+		if (_pClass == HeroClass::Monk || _pClass == HeroClass::Bard)
 		{
 			if (IsWalking())
 				return 0;
@@ -438,11 +439,11 @@ struct Player {
 	 */
 	int GetMeleeToHit() const
 	{
-		int hper = _pLevel + _pDexterity / 2 + _pIBonusToHit + BaseHitChance;
+		int hper = _pLevel + _pDexterity + _pIBonusToHit + BaseHitChance;
 		if (_pClass == HeroClass::Warrior)
 			hper += 20;
 		if ((_pClass == HeroClass::Rogue && tookAnointedShrine) || (_pClass == HeroClass::Sorcerer && tookAnointedShrine))
-			hper += 50;
+			hper += 65;
 		return hper;
 	}
 
@@ -502,6 +503,8 @@ struct Player {
 		int blkper = _pDexterity + _pBaseToBlk;
 		if (useLevel)
 			blkper += _pLevel * 2;
+		if (_pClass == HeroClass::Sorcerer && tookAnointedShrine)
+			blkper += 25;
 		return blkper;
 	}
 
