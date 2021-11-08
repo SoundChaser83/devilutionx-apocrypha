@@ -1091,6 +1091,7 @@ void SpawnLoot(Monster &monster, bool sendmsg)
 		if (effect_is_playing(USFX_DEFILER8))
 			stream_stop();
 		Quests[Q_DEFILER]._qlog = false;
+		SpawnItem(monster, monster.position.tile, sendmsg);
 		SpawnMapOfDoom(monster.position.tile);
 	} else if (monster._uniqtype - 1 == UMT_HORKDMN) {
 		if (sgGameInitInfo.bTheoQuest != 0) {
@@ -1107,10 +1108,17 @@ void SpawnLoot(Monster &monster, bool sendmsg)
 			stream_stop();
 		Quests[Q_NAKRUL]._qlog = false;
 		UberDiabloMonsterIndex = -2;
-		CreateMagicWeapon(monster.position.tile, ItemType::Sword, ICURS_GREAT_SWORD, false, true);
-		CreateMagicWeapon(monster.position.tile, ItemType::Staff, ICURS_WAR_STAFF, false, true);
-		CreateMagicWeapon(monster.position.tile, ItemType::Bow, ICURS_LONG_WAR_BOW, false, true);
-		CreateSpellBook(monster.position.tile, SPL_APOCA, false, true);
+		if (!IsUberRoomOpened) {
+			SpawnItem(monster, monster.position.tile, sendmsg);
+			SpawnItem(monster, monster.position.tile, sendmsg);
+			SpawnItem(monster, monster.position.tile, sendmsg);
+			SpawnItem(monster, monster.position.tile, sendmsg);
+			SpawnItem(monster, monster.position.tile, sendmsg);
+			SpawnItem(monster, monster.position.tile, sendmsg);
+		} else {
+			SpawnItem(monster, monster.position.tile, sendmsg);
+		}
+
 	} else if (monster.MType->mtype != MT_GOLEM) {
 		SpawnItem(monster, monster.position.tile, sendmsg);
 	}
@@ -1994,8 +2002,8 @@ bool IsTileSafe(const Monster &monster, Point position)
 		return true;
 	}
 
-	bool fearsFire = (monster.mMagicRes & IMMUNE_FIRE) == 0 || monster.MType->mtype == MT_DIABLO;
-	bool fearsLightning = (monster.mMagicRes & IMMUNE_LIGHTNING) == 0 || monster.MType->mtype == MT_DIABLO;
+	bool fearsFire = (monster.mMagicRes & IMMUNE_FIRE) == 0;
+	bool fearsLightning = (monster.mMagicRes & IMMUNE_LIGHTNING) == 0;
 
 	for (int j = 0; j < ActiveMissileCount; j++) {
 		uint8_t mi = ActiveMissiles[j];
@@ -3782,9 +3790,8 @@ void monster_some_crypt()
 	auto &monster = Monsters[UberDiabloMonsterIndex];
 	PlayEffect(monster, 2);
 	Quests[Q_NAKRUL]._qlog = false;
-	monster.mArmorClass -= 50;
+	monster.mArmorClass -= 15;
 	int hp = monster._mmaxhp / 2;
-	monster.mMagicRes = 0;
 	monster._mhitpoints = hp;
 	monster._mmaxhp = hp;
 }

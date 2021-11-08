@@ -1713,7 +1713,8 @@ void SetCryptRoom(int rx1, int ry1)
 	setpc_y = ry1;
 	setpc_w = rw;
 	setpc_h = rh;
-	IsUberRoomOpened = false;
+	if (IsUberRoomOpened != true)
+		IsUberRoomOpened = false;
 	IsUberLeverActivated = false;
 
 	int sp = 2;
@@ -2497,7 +2498,8 @@ void CreateL5Dungeon(uint32_t rseed, lvl_entry entry)
 
 	UberRow = 0;
 	UberCol = 0;
-	IsUberRoomOpened = false;
+	if (IsUberRoomOpened != true)
+		IsUberRoomOpened = false;
 	IsUberLeverActivated = false;
 	UberDiabloMonsterIndex = 0;
 
