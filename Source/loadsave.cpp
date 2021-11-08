@@ -16,6 +16,7 @@
 #include "cursor.h"
 #include "dead.h"
 #include "doom.h"
+#include "drlg_l1.h"
 #include "engine.h"
 #include "engine/point.hpp"
 #include "engine/random.hpp"
@@ -778,7 +779,8 @@ void LoadQuest(LoadHelper *file, int i)
 	quest._qslvl = static_cast<_setlevels>(file->NextLE<uint8_t>());
 	quest._qidx = static_cast<quest_id>(file->NextLE<uint8_t>());
 	if (gbIsHellfireSaveGame) {
-		file->Skip(2); // Alignment
+		file->Skip(1); // Alignment
+		IsUberRoomOpened = file->NextBool8();
 		quest._qmsg = static_cast<_speech_id>(file->NextLE<int32_t>());
 	} else {
 		quest._qmsg = static_cast<_speech_id>(file->NextLE<uint8_t>());
@@ -1425,7 +1427,8 @@ void SaveQuest(SaveHelper *file, int i)
 	file->WriteLE<uint8_t>(quest._qslvl);
 	file->WriteLE<uint8_t>(quest._qidx);
 	if (gbIsHellfire) {
-		file->Skip(2); // Alignment
+		file->Skip(1); // Alignment
+		file->WriteLE<uint8_t>(IsUberRoomOpened);
 		file->WriteLE<int32_t>(quest._qmsg);
 	} else {
 		file->WriteLE<uint8_t>(quest._qmsg);

@@ -16,7 +16,7 @@ namespace devilution {
 
 int UberRow;
 int UberCol;
-bool IsUberRoomOpened;
+bool IsUberRoomOpened = false;
 bool IsUberLeverActivated;
 int UberDiabloMonsterIndex;
 
