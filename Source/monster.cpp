@@ -1471,6 +1471,8 @@ void MonsterAttackPlayer(int i, int pnum, int hit, int minDam, int maxDam)
 		ac += 40;
 	if ((player.pDamAcFlags & ISPLHF_ACUNDEAD) != 0 && monster.MData->mMonstClass == MonsterClass::Undead)
 		ac += 20;
+	if (monster._uniqtype != 0 || monster.MType->mtype == MT_DIABLO)
+		ac /= 4;
 	hit += 2 * (monster.mLevel - player._pLevel)
 	    + 30
 	    - ac;
