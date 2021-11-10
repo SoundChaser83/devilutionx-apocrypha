@@ -3790,10 +3790,14 @@ void monster_some_crypt()
 	auto &monster = Monsters[UberDiabloMonsterIndex];
 	PlayEffect(monster, 2);
 	Quests[Q_NAKRUL]._qlog = false;
-	monster.mArmorClass -= 15;
-	int hp = monster._mmaxhp / 2;
+	monster.mArmorClass -= 50;
+	int hp = monster._mmaxhp / 4;
 	monster._mhitpoints = hp;
 	monster._mmaxhp = hp;
+	monster.mMinDamage /= 2;
+	monster.mMaxDamage /= 2;
+	monster.mMinDamage2 /= 2;
+	monster.mMaxDamage2 /= 2;
 }
 
 void InitMonsters()
