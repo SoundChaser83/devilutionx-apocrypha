@@ -516,7 +516,7 @@ void PrintSBookStr(const Surface &out, Point position, const char *text)
 spell_type GetSBookTrans(spell_id ii, bool townok)
 {
 	auto &myPlayer = Players[MyPlayerId];
-	if ((myPlayer._pClass == HeroClass::Monk) && (ii == SPL_SEARCH))
+	if ((myPlayer._pClass == HeroClass::Monk) && (ii == SPL_INFRA))
 		return RSPLTYPE_SKILL;
 	spell_type st = RSPLTYPE_SPELL;
 	if ((myPlayer._pISpells & GetSpellBitmask(ii)) != 0) {
@@ -687,8 +687,6 @@ bool GetSpellListSelection(spell_id &pSpell, spell_type &pSplType)
 		if (spellListItem.isSelected) {
 			pSpell = spellListItem.id;
 			pSplType = spellListItem.type;
-			if (myPlayer._pClass == HeroClass::Monk && spellListItem.id == SPL_SEARCH)
-				pSplType = RSPLTYPE_SKILL;
 			return true;
 		}
 	}
@@ -1026,7 +1024,7 @@ void InitControlPan()
 	} else if (myPlayer._pClass == HeroClass::Sorcerer) {
 		SpellPages[0][0] = SPL_RECHARGE;
 	} else if (myPlayer._pClass == HeroClass::Monk) {
-		SpellPages[0][0] = SPL_SEARCH;
+		SpellPages[0][0] = SPL_INFRA;
 	} else if (myPlayer._pClass == HeroClass::Bard) {
 		SpellPages[0][0] = SPL_IDENTIFY;
 	} else if (myPlayer._pClass == HeroClass::Barbarian) {

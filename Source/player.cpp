@@ -2522,8 +2522,8 @@ void CreatePlayer(int playerId, HeroClass c)
 		player._pAblSpells = GetSpellBitmask(SPL_RECHARGE);
 		player._pRSpell = SPL_RECHARGE;
 	} else if (c == HeroClass::Monk) {
-		player._pAblSpells = GetSpellBitmask(SPL_SEARCH);
-		player._pRSpell = SPL_SEARCH;
+		player._pAblSpells = GetSpellBitmask(SPL_INFRA);
+		player._pRSpell = SPL_INFRA;
 	} else if (c == HeroClass::Bard) {
 		player._pAblSpells = GetSpellBitmask(SPL_IDENTIFY);
 		player._pRSpell = SPL_IDENTIFY;
@@ -2801,7 +2801,7 @@ void InitPlayer(Player &player, bool firstTime)
 	} else if (player._pClass == HeroClass::Sorcerer) {
 		player._pAblSpells = GetSpellBitmask(SPL_RECHARGE);
 	} else if (player._pClass == HeroClass::Monk) {
-		player._pAblSpells = GetSpellBitmask(SPL_SEARCH);
+		player._pAblSpells = GetSpellBitmask(SPL_INFRA);
 	} else if (player._pClass == HeroClass::Bard) {
 		player._pAblSpells = GetSpellBitmask(SPL_IDENTIFY);
 	} else if (player._pClass == HeroClass::Barbarian) {
