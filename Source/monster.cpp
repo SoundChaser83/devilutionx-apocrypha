@@ -2856,7 +2856,22 @@ void ButcherAi(int i)
 
 void SuccubusAi(int i)
 {
-	AiRanged(i, MIS_FLARE, false);
+	assert(i >= 0 && i < MAXMONSTERS);
+	auto &monster = Monsters[i];
+
+	if (monster._mmode != MonsterMode::Stand || monster._msquelch == 0) {
+		return;
+	}
+
+	Direction md = GetMonsterDirection(monster);
+	monster._mdir = md;
+
+	if (GenerateRnd(100) < 2 * monster._mint + 15) {
+		if (LineClearMissile(monster.position.tile, monster.enemyPosition))
+			StartRangedAttack(monster, MIS_FLARE, 4);
+	}
+
+	monster.CheckStandAnimationIsLoaded(md);
 }
 
 void SneakAi(int i)
