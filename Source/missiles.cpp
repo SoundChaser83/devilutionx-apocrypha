@@ -2128,7 +2128,7 @@ void AddFlash(Missile &missile, Point /*dst*/, Direction /*midir*/)
 			missile._midam += missile._midam / 2;
 			UseMana(missile._misource, SPL_FLASH);
 		} else {
-			missile._midam = Monsters[missile._misource].mLevel * 2;
+			missile._midam = Monsters[missile._misource].mLevel * 8;
 		}
 	} else {
 		missile._midam = currlevel / 2;
@@ -2138,16 +2138,18 @@ void AddFlash(Missile &missile, Point /*dst*/, Direction /*midir*/)
 
 void AddFlash2(Missile &missile, Point /*dst*/, Direction /*midir*/)
 {
-	if (missile._micaster == TARGET_MONSTERS) {
-		if (missile._misource != -1) {
-			int dmg = Players[missile._misource]._pLevel + 1;
-			dmg += GenerateRndSum(20, dmg);
+	if (missile._misource != -1) {
+		if (missile._micaster == TARGET_MONSTERS) {
+			int dmg = GenerateRndSum(20, Players[missile._misource]._pLevel + 1) + Players[missile._misource]._pLevel + 1;
 			missile._midam = ScaleSpellEffect(dmg, missile._mispllvl);
 			missile._midam += missile._midam / 2;
 		} else {
-			missile._midam = currlevel / 2;
+			missile._midam = Monsters[missile._misource].mLevel * 8;
 		}
+	} else {
+		missile._midam = currlevel / 2;
 	}
+
 	missile._miPreFlag = true;
 	missile._mirange = 19;
 }
