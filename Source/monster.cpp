@@ -3151,11 +3151,7 @@ void CounselorAi(int i)
 				AiDelay(monster, GenerateRnd(10) + 2 * (5 - monster._mint));
 		} else {
 			monster._mdir = md;
-			if (monster._mhitpoints < (monster._mmaxhp / 2)) {
-				monster._mgoal = MGOAL_RETREAT;
-				monster._mgoalvar1 = 0;
-				StartFadeout(monster, md, false);
-			} else if (static_cast<MonsterMode>(monster._mVar1) == MonsterMode::Delay
+			if (static_cast<MonsterMode>(monster._mVar1) == MonsterMode::Delay
 			    || GenerateRnd(100) < 2 * monster._mint + 20) {
 				StartRangedAttack(monster, MIS_NULL, 0);
 				AddMissile(monster.position.tile, { 0, 0 }, monster._mdir, MIS_FLASH, TARGET_PLAYERS, i, 4, 0);
