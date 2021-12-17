@@ -2222,10 +2222,8 @@ void AiRanged(int i, missile_id missileType, bool special)
 		monster._mdir = md;
 		if (static_cast<MonsterMode>(monster._mVar1) == MonsterMode::RangedAttack) {
 			AiDelay(monster, GenerateRnd(20));
-		} else if (abs(mx) < 4 && abs(my) < 4) {
-			if (GenerateRnd(100) < 10 * (monster._mint + 7))
-				RandomWalk(i, Opposite(md));
 		}
+
 		if (monster._mmode == MonsterMode::Stand) {
 			if (LineClearMissile(monster.position.tile, { fx, fy })) {
 				if (special)
@@ -2856,22 +2854,7 @@ void ButcherAi(int i)
 
 void SuccubusAi(int i)
 {
-	assert(i >= 0 && i < MAXMONSTERS);
-	auto &monster = Monsters[i];
-
-	if (monster._mmode != MonsterMode::Stand || monster._msquelch == 0) {
-		return;
-	}
-
-	Direction md = GetMonsterDirection(monster);
-	monster._mdir = md;
-
-	if (GenerateRnd(100) < 2 * monster._mint + 15) {
-		if (LineClearMissile(monster.position.tile, monster.enemyPosition))
-			StartRangedAttack(monster, MIS_FLARE, 4);
-	}
-
-	monster.CheckStandAnimationIsLoaded(md);
+	AiRanged(i, MIS_FLARE, false);
 }
 
 void SneakAi(int i)
