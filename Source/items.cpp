@@ -4730,7 +4730,7 @@ void SpawnBoy(int lvl)
 		SetRndSeed(Items[0]._iSeed);
 		int itype = RndBoyItem(lvl) - 1;
 		GetItemAttrs(Items[0], itype, lvl);
-		GetItemBonus(Items[0], lvl, 2 * lvl, true, true);
+		GetItemBonus(Items[0], lvl, std::min(2 * lvl, 40), true, true);
 
 		if (!gbIsHellfire) {
 			if (Items[0]._iIvalue > 90000) {
