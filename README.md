@@ -68,14 +68,11 @@ All of the wonderful things from DevilutionX v1.3.0 including...
 
 # How to Install
 
-Note: You'll need access to the data from the original game. If you don't have an original CD then you can [buy Diablo from GoG.com](https://www.gog.com/game/diablo). Alternately you can use `spawn.mpq` from the [shareware](http://ftp.blizzard.com/pub/demos/diablosw.exe) version, in place of `DIABDAT.MPQ`, to play the shareware portion of the game.
+Note: You'll need access to the data from the original game. If you don't have an original CD then you can [buy Diablo from GoG.com](https://www.gog.com/game/diablo).
 
-Download the latest [DevilutionX release](https://github.com/diasurgical/devilutionX/releases) and extract the contents to a location of your choosing or [build from source](#building-from-source).
-
-- Copy `DIABDAT.MPQ` from the CD or GOG-installation (or [extract it from the GoG installer](https://github.com/diasurgical/devilutionX/wiki/Extracting-the-.MPQs-from-the-GoG-installer)) to the DevilutionX folder.
-- To run the Diablo: Hellfire expansion you will need to also copy `hellfire.mpq`, `hfmonk.mpq`, `hfmusic.mpq`, `hfvoice.mpq`.
-
-For more detailed instructions: [Installation Instructions](./docs/installing.md).
+Download the [latest Apocrypha release](https://github.com/SoundChaser83/devilutionx-apocrypha/releases/download/v0.1.0/apocrypha_windows_x64.zip) and extract the contents to a location of your choosing. If you have the GOG version of Diablo, run apocrypha.exe and enjoy! If you have the original Diablo CD:
+- Copy `DIABDAT.MPQ` from the CD and paste it into your apocrypha folder.
+- To run the Diablo: Hellfire expansion you will need to do the same for `hellfire.mpq`, `hfmonk.mpq`, `hfmusic.mpq`, `hfvoice.mpq` from your Hellfire CD.
 
 # Legal
 
