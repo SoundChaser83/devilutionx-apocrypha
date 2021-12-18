@@ -2,7 +2,7 @@
 
 Diablo has seen a wide variety of mods which attempt to provide a novel experience by considerably altering the game's itemization, character classes, quests, monsters, difficulty, skills, etc. This is not the goal of Apocrypha.
 
-Apocrypha is designed primarily as a balance patch for the original game. It aims to achieve a more diverse set of viable playstyles by buffing/reworking under-powered mechanics while nerfing over-powered ones, maintaining a roughly similar difficulty curve on average.
+Apocrypha is designed primarily as a balance patch for Diablo. It aims to achieve a more diverse set of viable playstyles by buffing/reworking under-powered mechanics while nerfing over-powered ones, maintaining a roughly similar difficulty curve on average and staying true to the general spirit and feel of the original game.
 
 However, this doesn't mean that there's nothing new to look forward to in Apocrypha! There are now six new shrines which offer extremely powerful build-defining opportunities, but only for those brave enough to read from their apocryphal texts...
 
@@ -27,6 +27,8 @@ Melee classes (i.e. Warrior, Monk, Bard, and Barbarian) all gain armor class per
 Chance to avoid monster attacks now capped at 75% at all levels
 
 Attacks from unique monsters + Diablo now ignore 75% of player's armor class
+
+Improved chance to hit bonus for melee from dexterity
 
 Multiple spells have been substantially rebalanced, so don't just assume a spell is bad! Every spell has been playtested and is good at something.
 
