@@ -72,11 +72,13 @@ All of the wonderful things from DevilutionX v1.3.0 including...
 
 Note: You'll need access to the data from the original game. If you don't have an original CD then you can [buy Diablo from GoG.com](https://www.gog.com/game/diablo).
 
-Download the [latest Apocrypha release](https://github.com/SoundChaser83/devilutionx-apocrypha/releases/download/v0.1.0/apocrypha_windows_x64.zip) and extract the contents to a location of your choosing. If you have the GOG version of Diablo, run `apocrypha.exe` and enjoy! If you have the original Diablo CD:
+Download the [latest Apocrypha release](https://github.com/SoundChaser83/devilutionx-apocrypha/releases/download/v0.1.1/apocrypha_windows_x64.zip) and extract the contents to a location of your choosing. If you have the GOG version of Diablo, run `apocrypha.exe` and enjoy! If you have the original Diablo CD:
 - Copy `DIABDAT.MPQ` from the CD and paste it into your apocrypha folder.
 - To run the Diablo: Hellfire expansion you will need to do the same for `hellfire.mpq`, `hfmonk.mpq`, `hfmusic.mpq`, `hfvoice.mpq` from your Hellfire CD.
 
 RUNNING THE GAME IN HELLFIRE MODE IS HIGHLY RECOMMENDED! Multiple balance changes will not work unless you're playing Hellfire. Feel free to ignore the Hellfire side areas though, if you'd like :)
+
+To update to a newer version of Apocrypha, just download the latest release, extract, and place the new `apocrypha.exe` in your old Apocrypha folder overwriting the old `apocrypha.exe`. 
 
 Resolution, fullscreen mode, and other miscellaneous settings may be edited in `diablo.ini` to your liking.
 
