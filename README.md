@@ -3,7 +3,7 @@
 Diablo has seen a wide variety of mods which attempt to provide a novel experience by considerably altering the game's itemization, character classes, quests, monsters, difficulty, skills, etc. This is not the goal of Apocrypha.
 
 <p align="center">
-<img width="800" src="https://user-images.githubusercontent.com/54762359/146628251-00e20f67-01a0-49d6-b055-10df4509eda6.png">
+<img width="800" src="https://user-images.githubusercontent.com/54762359/146628254-7c14ec66-2630-4cd7-ab07-a3010a163d1e.png">
 </p>
 
 Apocrypha is designed primarily as a balance patch for Diablo. It aims to achieve a more diverse set of viable playstyles by buffing/reworking under-powered mechanics while nerfing over-powered ones, maintaining a roughly similar difficulty curve on average and staying true to the general spirit and feel of the original game.
