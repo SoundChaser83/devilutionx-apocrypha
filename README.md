@@ -56,6 +56,8 @@ Na-Krul's item drops have been reworked, and pulling the lever to summon Na-Krul
 
 Ranged monsters no longer retreat when walking close to them
 
+Diablo and Na-Krul's resistances/immunities have changed, so casters may have to experiment a bit!
+
 All of the wonderful things from DevilutionX v1.3.0 including...
 - Widescreen resolution
 - 60 FPS animations
