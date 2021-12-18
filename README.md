@@ -74,9 +74,9 @@ Download the [latest Apocrypha release](https://github.com/SoundChaser83/devilut
 - Copy `DIABDAT.MPQ` from the CD and paste it into your apocrypha folder.
 - To run the Diablo: Hellfire expansion you will need to do the same for `hellfire.mpq`, `hfmonk.mpq`, `hfmusic.mpq`, `hfvoice.mpq` from your Hellfire CD.
 
-RUNNING THE GAME IN HELLFIRE MODE IS HIGHLY RECOMMENDED! Multiple balance changes will not work unless you're playing Hellfire.
+RUNNING THE GAME IN HELLFIRE MODE IS HIGHLY RECOMMENDED! Multiple balance changes will not work unless you're playing Hellfire. Feel free to ignore the Hellfire side areas though, if you'd like :)
 
-Resolution, fullscreen mode, and other miscellaneous settings may be edited in diablo.ini to your liking.
+Resolution, fullscreen mode, and other miscellaneous settings may be edited in `diablo.ini` to your liking.
 
 # Legal
 
