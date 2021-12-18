@@ -1,29 +1,60 @@
-<p align="center">
-<img width="554" src="https://user-images.githubusercontent.com/204594/113575181-c946a400-961d-11eb-8347-a8829fa3830c.png">
-</p>
+# Apocrypha - A balance patch for vanilla Diablo fans
 
----
+Diablo has seen a wide variety of mods which attempt to provide a novel experience by considerably altering the game's itemization, character classes, quests, monsters, difficulty, skills, etc. This is not the goal of Apocrypha.
 
-[![Downloads](https://img.shields.io/github/downloads/diasurgical/devilutionX/total.svg)](https://github.com/diasurgical/devilutionX/releases)
-[![GitHub Stars](https://img.shields.io/github/stars/diasurgical/devilutionX.svg)](https://github.com/diasurgical/devilutionX/stargazers)
-[![Codecov](https://codecov.io/gh/diasurgical/devilutionX/branch/master/graph/badge.svg)](https://codecov.io/gh/diasurgical/devilutionX)
-[![BCH compliance](https://bettercodehub.com/edge/badge/diasurgical/devilutionX?branch=master)](https://bettercodehub.com/)
+Apocrypha is designed primarily as a balance patch for the original game. It aims to achieve a more diverse set of viable playstyles by buffing/reworking under-powered mechanics while nerfing over-powered ones, maintaining a roughly similar difficulty curve on average.
 
-![Discord Channel](https://avatars3.githubusercontent.com/u/1965106?s=16&v=4) [Discord Chat Channel](https://discord.gg/YQKCAYQ)
+However, this doesn't mean that there's nothing new to look forward to in Apocrypha! There are now six new shrines which offer extremely powerful build-defining opportunities, but only for those brave enough to read from their apocryphal texts...
 
-<p align="center">
-<img width="838" src="https://user-images.githubusercontent.com/204594/113578478-26912400-9623-11eb-9ff6-9bd9717462b6.png">
-</p>
+Currently, Apocrypha is designed for and balanced around Hellfire in single player, so that's the recommended way to experience this mod. If you don't care for Hellfire, it's still highly encouraged that you keep Hellfire mode enabled even if you ignore the side areas since multiple balance changes rely on Hellfire being active. This may change in the future as the code gets cleaned up over time.
 
-<sub>*(The health-bar and XP-bar are off by default, but can be enabled in the [ini-file](https://github.com/diasurgical/devilutionX/wiki/DevilutionX-diablo.ini-configuration-guide). Widescreen and transparency can also be disabled if preferred)*</sub>
+Apocrypha was built using DevilutionX v1.3.0. This mod wouldn't have been possible for me to create without the huge amount of work, dedication, and assistance from the DevilutionX community.
 
-# What is DevilutionX
+So far, Apocrypha is only available for Windows 64-bit operating systems. Sorry! If this mod takes off and people like it, then I can devote more time to making it work on other systems too. I'm just one guy, and still very new to coding.
 
-DevilutionX is a source port of Diablo and Hellfire that strives to make it simple to run the game while providing engine improvements, bugfixes, and some optional quality of life features.
+# What's different in Apocrypha?
 
-Check out the [manual](https://github.com/diasurgical/devilutionX/wiki) for what features are available and how best to take advantage of them.
+Six new powerful shrines, all available starting from level 1
 
-For a full list of changes see our [changelog](docs/CHANGELOG.md).
+Substantially nerfed Sorcerer's mana gain per magic point
+
+Sorcerer now has drastically reduced mana costs for almost every spell
+
+Nerfed Sorcerer's life gain per vitality point
+
+Melee classes (i.e. Warrior, Monk, Bard, and Barbarian) all gain armor class per character level, but armor class is reduced to zero while moving
+
+Chance to avoid monster attacks now capped at 75% at all levels
+
+Attacks from unique monsters + Diablo now ignore 75% of player's armor class
+
+Multiple spells have been substantially rebalanced, so don't just assume a spell is bad! Every spell has been playtested and is good at something.
+
+Magic resistance/immunity removed from all regular non-unique monsters
+
+Search, Reflect, Warp, and Teleport removed from the game
+
+Monk's inherent skill is now Infravision instead of Search
+
+All farmable permanent stat-increasing mechanics removed from the game (e.g. elixirs, oils, stat-increasing shrines), and Spectral Elixir is now one-time use. Feel free to grab the mushroom as much as you want though.
+
+Powerful item affixes have had their levels raised substantially. You can still find them, but don't expect to farm Griswold anymore!
+
+The Defiler and Na-Krul have had their health significantly increased
+
+Na-Krul's item drops have been reworked, and pulling the lever to summon Na-Krul now spawns a significantly harder "uber" Na-Krul with highly enhanced item drops
+
+Ranged monsters no longer retreat when walking close to them
+
+All of the wonderful things from DevilutionX v1.3.0 including...
+- Widescreen resolution
+- 60 FPS animations
+- Hold "Alt" to reveal items on the ground
+- Hold left/right click to keep attacking/casting
+- New UI elements such as enemy health bars and an experience bar
+- Shift+click potions to belt, ctrl+click to drop items from inventory
+- Countless bug fixes
+- And many more...
 
 # How to Install
 
@@ -36,47 +67,12 @@ Download the latest [DevilutionX release](https://github.com/diasurgical/devilut
 
 For more detailed instructions: [Installation Instructions](./docs/installing.md).
 
-# Contributing
-
-We are always looking for more people to help with [coding](docs/CONTRIBUTING.md), [documentation](https://github.com/diasurgical/devilutionX/wiki), testing the [latest builds](https://app.circleci.com/pipelines/github/diasurgical/devilutionX?branch=master), spreading the word, or simply just hanging out on [the chat](https://discord.gg/YQKCAYQ).
-
-# Mods
-
-We hope to provide a good starting point for mods, in addition to the full Devilution source code we also provide modding tools. Also, check out the list of known [mods based on DevilutionX](https://github.com/diasurgical/devilutionX/wiki/Mods-and-related-projects).
-
-# Test builds
-
-If you want to help test the latest state of the next version you can fetch the build artifact from one of the build server:
-
-[![Linux x86](https://github.com/diasurgical/devilutionX/actions/workflows/Linux_x86.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/Linux_x86.yml?query=branch%3Amaster)
-[![Linux x86-64 SDL1](https://github.com/diasurgical/devilutionX/actions/workflows/Linux_x86_64_SDL1.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/Linux_x86_64_SDL1.yml?query=branch%3Amaster)
-[![MacOSX](https://github.com/diasurgical/devilutionX/actions/workflows/MacOSX.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/MacOSX.yml?query=branch%3Amaster)
-[![Windows x64](https://github.com/diasurgical/devilutionX/actions/workflows/Windows_x64.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/Windows_x64.yml?query=branch%3Amaster)
-[![Windows x86](https://github.com/diasurgical/devilutionX/actions/workflows/Windows_x86.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/Windows_x86.yml?query=branch%3Amaster)
-[![Android](https://github.com/diasurgical/devilutionX/actions/workflows/Android.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/Android.yml?query=branch%3Amaster)
-
-Linux x86-64, Switch, Vita, 3DS, Amiga, [![CircleCI](https://circleci.com/gh/diasurgical/devilutionX.svg?style=shield)](https://app.circleci.com/pipelines/github/diasurgical/devilutionX?branch=master)
-
-MSVC [![AppVeyor](https://ci.appveyor.com/api/projects/status/1a0jus2372qvksht/branch/master?svg=true)](https://ci.appveyor.com/project/AJenbo/devilutionx)
-
-# Building from Source
-
-Want to compile the program by yourself? Great! Simply follow the [build instructions](./docs/building.md).
-
-# Credits
-
-- The original Devilution project [Devilution](https://github.com/diasurgical/devilution#credits)
-- [Everyone](https://github.com/diasurgical/devilutionX/graphs/contributors) who worked on Devilution/DevilutionX
-- [Nikolay Popov](https://www.instagram.com/nikolaypopovz/) who provided new backgrounds and icons
-- [WiAParker](https://wiaparker.pl/projekty/diablo-hellfire/) for the Polish voice pack
-- And thanks to all who support the project, report bugs, and help spread the word ❤️
-
 # Legal
 
-DevilutionX is released to the Public Domain. The documentation and functionality provided by DevilutionX may only be utilized with assets provided by the ownership of Diablo.
+Apocrypha is released to the Public Domain. The documentation and functionality provided by Apocrypha may only be utilized with assets provided by the ownership of Diablo.
 
 The source code in this repository is for non-commercial use only. If you use the source code you may not charge others for access to it or any derivative work thereof.
 
 Diablo® - Copyright © 1996 Blizzard Entertainment, Inc. All rights reserved. Diablo and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries.
 
-DevilutionX and any of its maintainers are in no way associated with or endorsed by Blizzard Entertainment®.
+Apocrypha and any of its maintainers are in no way associated with or endorsed by Blizzard Entertainment®.
