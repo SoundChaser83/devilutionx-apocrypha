@@ -3,13 +3,13 @@
 Diablo has seen a wide variety of mods which attempt to provide a novel experience by considerably altering the game's itemization, character classes, quests, monsters, difficulty, skills, etc. This is not the goal of Apocrypha.
 
 <p align="center">
-<img width="780" src="https://raw.githubusercontent.com/SoundChaser83/devilutionx-apocrypha/SoundChaserBranch/docs/Inferno.png?token=ANBZW54AGLONKOKZPVIAHMTBXVLH6">
+<img width="800" src="https://raw.githubusercontent.com/SoundChaser83/devilutionx-apocrypha/SoundChaserBranch/docs/Inferno.png?token=ANBZW54AGLONKOKZPVIAHMTBXVLH6">
 </p>
 
 Apocrypha is designed primarily as a balance patch for Diablo. It aims to achieve a more diverse set of viable playstyles by buffing/reworking under-powered mechanics while nerfing over-powered ones, maintaining a roughly similar difficulty curve on average and staying true to the general spirit and feel of the original game.
 
 <p align="center">
-<img width="780" src="https://raw.githubusercontent.com/SoundChaser83/devilutionx-apocrypha/SoundChaserBranch/docs/Anointed.png?token=ANBZW53A76XDU7W265BRXWTBXVLEQ">
+<img width="800" src="https://raw.githubusercontent.com/SoundChaser83/devilutionx-apocrypha/SoundChaserBranch/docs/Anointed.png?token=ANBZW53A76XDU7W265BRXWTBXVLEQ">
 </p>
 
 However, this doesn't mean that there's nothing new to look forward to in Apocrypha! There are now six new shrines which offer extremely powerful build-defining opportunities, but only for those brave enough to read from their apocryphal texts...
