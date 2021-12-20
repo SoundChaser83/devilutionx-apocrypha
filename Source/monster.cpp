@@ -798,9 +798,11 @@ void NewMonsterAnim(Monster &monster, MonsterGraphic graphic, Direction md, Anim
 void StartMonsterGotHit(int monsterId)
 {
 	auto &monster = Monsters[monsterId];
+	if (monster.MType->mtype == MT_DIABLO || monster.MType->mtype == MT_NAKRUL)
+		return;
 	if (monster.MType->mtype != MT_GOLEM) {
 		auto animationFlags = gGameLogicStep < GameLogicStep::ProcessMonsters ? AnimationDistributionFlags::ProcessAnimationPending : AnimationDistributionFlags::None;
-		int numSkippedFrames = (gbIsHellfire && monster.MType->mtype == MT_DIABLO) ? 4 : 0;
+		int numSkippedFrames = 0;
 		NewMonsterAnim(monster, MonsterGraphic::GotHit, monster._mdir, animationFlags, numSkippedFrames);
 		monster._mmode = MonsterMode::HitRecovery;
 	}
