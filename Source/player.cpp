@@ -3354,7 +3354,7 @@ void ProcessPlayers()
 				if ((player._pIFlags & ISPL_DRAINLIFE) != 0 && currlevel != 0) {
 					ApplyPlrDamage(pnum, 0, 0, 4);
 				}
-				if (player.tookAlluringShrine)
+				if (player.tookAlluringShrine && currlevel != 0)
 					ApplyPlrDamage(pnum, 0, 0, 80);
 				if ((player._pIFlags & ISPL_NOMANA) != 0 && player._pManaBase > 0) {
 					player._pManaBase -= player._pMana;
