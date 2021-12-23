@@ -257,7 +257,7 @@ const PLStruct ItemPrefixes[] = {
 	{ N_("Ivory"),          { IPL_MAGICRES,             31,     40 },       16, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, GOE_ANY,  false,    true,    3100,   4000,       2 },
 	{ N_("Crystal"),        { IPL_MAGICRES,             41,     50 },       20, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, GOE_ANY,  false,    true,    8200,  12000,       3 },
 	{ N_("Diamond"),        { IPL_MAGICRES,             51,     60 },       26, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, GOE_ANY,  false,    true,   17100,  20000,       5 },
-	{ N_("Topaz"),          { IPL_ALLRES,               10,     15 },       10, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, GOE_ANY,  false,    true,    2000,   5000,       3 },
+	{ N_("Topaz"),          { IPL_ALLRES,               10,     15 },       20, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, GOE_ANY,  false,    true,    2000,   5000,       3 },
 	{ N_("Amber"),          { IPL_ALLRES,               16,     20 },       40, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, GOE_ANY,  false,    true,    7400,  10000,       3 },
 	{ N_("Jade"),           { IPL_ALLRES,               21,     30 },       50, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, GOE_ANY,  false,    true,   11000,  15000,       3 },
 	{ N_("Obsidian"),       { IPL_ALLRES,               31,     40 },       60, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, GOE_ANY,  false,    true,   24000,  40000,       4 },
