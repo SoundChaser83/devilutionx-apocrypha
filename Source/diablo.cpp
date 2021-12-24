@@ -1548,6 +1548,7 @@ bool StartGame(bool bNewGame, bool bSinglePlayer)
 			InitQuests();
 			InitPortals();
 			InitDungMsgs(Players[MyPlayerId]);
+			IsUberRoomOpened = false;
 		}
 		giNumberOfLevels = gbIsHellfire ? 25 : 17;
 		interface_mode uMsg = WM_DIABNEWGAME;
