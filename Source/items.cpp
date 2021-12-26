@@ -1316,9 +1316,6 @@ void GetOilType(Item &item, int maxLvl)
 
 void GetItemBonus(Item &item, int minlvl, int maxlvl, bool onlygood, bool allowspells)
 {
-	if (minlvl > 25)
-		minlvl = 25;
-
 	switch (item._itype) {
 	case ItemType::Sword:
 	case ItemType::Axe:
