@@ -24,6 +24,8 @@ So far, Apocrypha is only available for Windows 64-bit operating systems. Sorry!
 
 Six new powerful shrines, all available starting from level 1
 
+Loot fixes for nightmare and hell difficulties, making normal difficulty no longer the ideal place to find the best loot in the game
+
 Substantially nerfed Sorcerer's mana gain per magic point
 
 Sorcerer now has drastically reduced mana costs for almost every spell
@@ -72,7 +74,7 @@ All of the wonderful things from DevilutionX v1.3.0 including...
 
 Note: You'll need access to the data from the original game. If you don't have an original CD then you can [buy Diablo from GoG.com](https://www.gog.com/game/diablo).
 
-Download the [latest Apocrypha release](https://github.com/SoundChaser83/devilutionx-apocrypha/releases/download/v0.1.3/apocrypha_windows_x64.zip) and extract the contents to a location of your choosing. If you have the GOG version of Diablo, run `apocrypha.exe` and enjoy! If you have the original Diablo CD:
+Download the [latest Apocrypha release](https://github.com/SoundChaser83/devilutionx-apocrypha/releases/download/v0.2.0/apocrypha_windows_x64.zip) and extract the contents to a location of your choosing. If you have the GOG version of Diablo, run `apocrypha.exe` and enjoy! If you have the original Diablo CD:
 - Copy `DIABDAT.MPQ` from the CD and paste it into your Apocrypha folder.
 - To run the Diablo: Hellfire expansion you will need to do the same for `hellfire.mpq`, `hfmonk.mpq`, `hfmusic.mpq`, `hfvoice.mpq` from your Hellfire CD.
 
