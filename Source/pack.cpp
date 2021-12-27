@@ -134,6 +134,19 @@ void PackPlayer(PlayerPack *pPack, const Player &player, bool manashield)
 		pPack->pManaShield = SDL_SwapLE32(player.pManaShield);
 	else
 		pPack->pManaShield = 0;
+
+	pPack->passiveFlags = 0;
+
+	if (player.tookSpecElix)
+		pPack->passiveFlags |= PPF_SPECTRAL;
+	if (player.tookDilapShrine)
+		pPack->passiveFlags |= PPF_DILAPIDATED;
+	if (player.tookAlluringShrine)
+		pPack->passiveFlags |= PPF_ALLURING;
+	if (player.tookFrigidShrine)
+		pPack->passiveFlags |= PPF_FRIGID;
+	if (player.tookAnointedShrine)
+		pPack->passiveFlags |= PPF_ANOINTED;
 }
 
 void UnPackItem(const ItemPack *is, Item *id, bool isHellfire)
@@ -283,6 +296,17 @@ bool UnPackPlayer(const PlayerPack *pPack, Player &player, bool netSync)
 		for (int i = 0; i < 20; i++)
 			witchitem[i]._itype = ItemType::None;
 	}
+
+	if ((pPack->passiveFlags & PPF_SPECTRAL) != 0)
+		player.tookSpecElix = true;
+	if ((pPack->passiveFlags & PPF_DILAPIDATED) != 0)
+		player.tookDilapShrine = true;
+	if ((pPack->passiveFlags & PPF_ALLURING) != 0)
+		player.tookAlluringShrine = true;
+	if ((pPack->passiveFlags & PPF_FRIGID) != 0)
+		player.tookFrigidShrine = true;
+	if ((pPack->passiveFlags & PPF_ANOINTED) != 0)
+		player.tookAnointedShrine = true;
 
 	CalcPlrInv(player, false);
 	player.wReflections = SDL_SwapLE16(pPack->wReflections);

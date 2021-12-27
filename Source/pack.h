@@ -27,6 +27,17 @@ struct ItemPack {
 	int32_t dwBuff;
 };
 
+enum player_passive_flags {
+	// clang-format off
+	PPF_NONE            = 0,
+	PPF_SPECTRAL        = 1 << 0,
+	PPF_DILAPIDATED     = 1 << 1,
+	PPF_ALLURING        = 1 << 2,
+	PPF_FRIGID          = 1 << 3,
+	PPF_ANOINTED        = 1 << 4,
+	// clang-format on
+};
+
 struct PlayerPack {
 	uint32_t dwLowDateTime;
 	uint32_t dwHighDateTime;
@@ -75,7 +86,8 @@ struct PlayerPack {
 	uint32_t pDiabloKillLevel;
 	uint32_t pDifficulty;
 	uint32_t pDamAcFlags;
-	int32_t dwReserved[5]; // For future use
+	uint32_t passiveFlags;
+	int32_t dwReserved[4]; // For future use
 };
 #pragma pack(pop)
 
