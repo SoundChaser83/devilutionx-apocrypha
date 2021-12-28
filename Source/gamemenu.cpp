@@ -339,9 +339,6 @@ void gamemenu_save_game(bool /*bActivate*/)
 	ClrDiabloMsg();
 	force_redraw = 255;
 	NewCursor(CURSOR_HAND);
-	if (CornerStone.activated) {
-		CornerstoneSave();
-	}
 	interface_msg_pump();
 	SetWindowProc(saveProc);
 }

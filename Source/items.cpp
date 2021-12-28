@@ -3558,59 +3558,6 @@ void RecreateEar(Item &item, uint16_t ic, int iseed, int id, int dur, int mdur, 
 	item._iSeed = iseed;
 }
 
-void CornerstoneSave()
-{
-	if (!CornerStone.activated)
-		return;
-	if (!CornerStone.item.isEmpty()) {
-		ItemPack id;
-		PackItem(&id, &CornerStone.item);
-		const auto *buffer = reinterpret_cast<uint8_t *>(&id);
-		for (size_t i = 0; i < sizeof(ItemPack); i++) {
-			snprintf(&sgOptions.Hellfire.szItem[i * 2], 3, "%02hhX", buffer[i]);
-		}
-	} else {
-		sgOptions.Hellfire.szItem[0] = '\0';
-	}
-}
-
-void CornerstoneLoad(Point position)
-{
-	ItemPack pkSItem;
-
-	if (CornerStone.activated || position.x == 0 || position.y == 0) {
-		return;
-	}
-
-	CornerStone.item._itype = ItemType::None;
-	CornerStone.activated = true;
-	if (dItem[position.x][position.y] != 0) {
-		int ii = dItem[position.x][position.y] - 1;
-		for (int i = 0; i < ActiveItemCount; i++) {
-			if (ActiveItems[i] == ii) {
-				DeleteItem(ii, i);
-				break;
-			}
-		}
-		dItem[position.x][position.y] = 0;
-	}
-
-	if (strlen(sgOptions.Hellfire.szItem) < sizeof(ItemPack) * 2)
-		return;
-
-	Hex2bin(sgOptions.Hellfire.szItem, sizeof(ItemPack), reinterpret_cast<uint8_t *>(&pkSItem));
-
-	int ii = AllocateItem();
-	auto &item = Items[ii];
-
-	dItem[position.x][position.y] = ii + 1;
-
-	UnPackItem(&pkSItem, &item, (pkSItem.dwBuff & CF_HELLFIRE) != 0);
-	item.position = position;
-	RespawnItem(&item, false);
-	CornerStone.item = item;
-}
-
 void SpawnQuestItem(int itemid, Point position, int randarea, int selflag)
 {
 	if (randarea > 0) {
