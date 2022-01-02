@@ -500,7 +500,10 @@ void PlaceUniqueMonst(int uniqindex, int miniontype, int bosspacksize)
 	monster.mMaxDamage = uniqueMonsterData.mMaxDamage;
 	monster.mMinDamage2 = uniqueMonsterData.mMinDamage;
 	monster.mMaxDamage2 = uniqueMonsterData.mMaxDamage;
-	monster.mMagicRes = uniqueMonsterData.mMagicRes;
+	if (uniqindex == UMT_NAKRUL && sgGameInitInfo.nDifficulty == DIFF_HELL)
+		monster.mMagicRes = monster.MData->mMagicRes2;
+	else
+		monster.mMagicRes = uniqueMonsterData.mMagicRes;
 	monster.mtalkmsg = uniqueMonsterData.mtalkmsg;
 	if (uniqindex == UMT_HORKDMN)
 		monster.mlid = NO_LIGHT; // BUGFIX monsters initial light id should be -1 (fixed)
