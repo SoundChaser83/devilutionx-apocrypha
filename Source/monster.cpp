@@ -3979,6 +3979,9 @@ void M_GetKnockback(int i)
 {
 	auto &monster = Monsters[i];
 
+	if (monster.MType->mtype == MT_DIABLO || monster.MType->mtype == MT_NAKRUL)
+		return;
+
 	Direction d = Opposite(monster._mdir);
 	if (!DirOK(i, d)) {
 		return;
