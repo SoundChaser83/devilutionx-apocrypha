@@ -2714,8 +2714,6 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	player._pStrength = std::max(0, sadd + player._pBaseStr);
 	player._pMagic = std::max(0, madd + player._pBaseMag);
 	player._pDexterity = std::max(0, dadd + player._pBaseDex);
-	if (player.tookDilapShrine)
-		vadd += player._pDexterity - DexterityTbl[static_cast<std::size_t>(player._pClass)];
 	player._pVitality = std::max(0, vadd + player._pBaseVit);
 
 	if ((player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Sorcerer) && player.tookAnointedShrine) {
@@ -2834,6 +2832,7 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	player._pMana = std::min(imana + player._pManaBase, player._pMaxMana);
 
 	int hpToMagic = std::max(((player._pMaxHP >> 6) - (player._pMaxMana >> 6)) / 2, 0);
+	hpToMagic = std::min(hpToMagic, player.GetMaximumAttributeValue(CharacterAttribute::Vitality));
 	if (player.tookDilapShrine) {
 		player._pMagic += hpToMagic;
 
