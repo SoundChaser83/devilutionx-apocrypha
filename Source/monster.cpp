@@ -2007,6 +2007,9 @@ bool IsTileSafe(const Monster &monster, Point position)
 		return true;
 	}
 
+	if (monster.MType->mtype == MT_DIABLO || monster.MType->mtype == MT_NAKRUL)
+		return true;
+
 	bool fearsFire = (monster.mMagicRes & IMMUNE_FIRE) == 0;
 	bool fearsLightning = (monster.mMagicRes & IMMUNE_LIGHTNING) == 0;
 
