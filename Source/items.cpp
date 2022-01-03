@@ -2954,6 +2954,10 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		MaxGold = GOLD_MAX_LIMIT * 2;
 	}
 
+	if (player._pClass != HeroClass::Sorcerer) {
+		player._pMagic = std::min(player._pMagic, player.GetMaximumAttributeValue(CharacterAttribute::Magic));
+	}
+
 	if (player.tookDilapShrine) {
 		player._pHitPoints = std::max(player._pHitPoints - (hpToMagic << 6), 64);
 		player._pMaxHP -= hpToMagic << 6;
