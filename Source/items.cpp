@@ -492,9 +492,9 @@ void WitchBookLevel(int ii)
 	witchitem[ii]._iMinMag = spelldata[witchitem[ii]._iSpell].sMinInt;
 	int8_t spellLevel = Players[MyPlayerId]._pSplLvl[witchitem[ii]._iSpell];
 	while (spellLevel > 0) {
-		witchitem[ii]._iMinMag += 20 * witchitem[ii]._iMinMag / 100;
+		witchitem[ii]._iMinMag += spelldata[witchitem[ii]._iSpell].sMinInt;
 		spellLevel--;
-		if (witchitem[ii]._iMinMag + 20 * witchitem[ii]._iMinMag / 100 > 255) {
+		if (witchitem[ii]._iMinMag + spelldata[witchitem[ii]._iSpell].sMinInt > 255) {
 			witchitem[ii]._iMinMag = 255;
 			spellLevel = 0;
 		}
@@ -530,9 +530,9 @@ void CalcPlrBookVals(Player &player)
 			int8_t spellLevel = player._pSplLvl[item._iSpell];
 
 			while (spellLevel != 0) {
-				item._iMinMag += 20 * item._iMinMag / 100;
+				item._iMinMag += spelldata[item._iSpell].sMinInt;
 				spellLevel--;
-				if (item._iMinMag + 20 * item._iMinMag / 100 > 255) {
+				if (item._iMinMag + spelldata[item._iSpell].sMinInt > 255) {
 					item._iMinMag = 255;
 					spellLevel = 0;
 				}

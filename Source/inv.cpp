@@ -974,9 +974,9 @@ void CheckBookLevel(Player &player)
 	player.HoldItem._iMinMag = spelldata[player.HoldItem._iSpell].sMinInt;
 	int8_t spellLevel = player._pSplLvl[player.HoldItem._iSpell];
 	while (spellLevel != 0) {
-		player.HoldItem._iMinMag += 20 * player.HoldItem._iMinMag / 100;
+		player.HoldItem._iMinMag += spelldata[player.HoldItem._iSpell].sMinInt;
 		spellLevel--;
-		if (player.HoldItem._iMinMag + 20 * player.HoldItem._iMinMag / 100 > 255) {
+		if (player.HoldItem._iMinMag + spelldata[player.HoldItem._iSpell].sMinInt > 255) {
 			player.HoldItem._iMinMag = -1;
 			spellLevel = 0;
 		}
