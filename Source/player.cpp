@@ -3738,8 +3738,6 @@ void ModifyPlrMag(int p, int l)
 	if (player._pClass == HeroClass::Sorcerer) {
 		ms /= 5;
 		ms++;
-	} else if (player._pClass == HeroClass::Bard) {
-		ms += ms / 2;
 	}
 
 	player._pMaxManaBase += ms;
@@ -3836,8 +3834,6 @@ void SetPlrMag(Player &player, int v)
 	int m = v << 6;
 	if (player._pClass == HeroClass::Sorcerer) {
 		m /= 5;
-	} else if (player._pClass == HeroClass::Bard) {
-		m += m / 2;
 	}
 
 	player._pMaxManaBase = m;
