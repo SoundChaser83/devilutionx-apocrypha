@@ -60,6 +60,9 @@ UiFlags GetCurrentStatColor(CharacterAttribute attr)
 		style = UiFlags::ColorBlue;
 	if (current < base)
 		style = UiFlags::ColorRed;
+	if (attr == CharacterAttribute::Magic && current == MyPlayer->GetMaximumAttributeValue(attr))
+		style = UiFlags::ColorWhitegold;
+
 	return style;
 }
 
