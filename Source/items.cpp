@@ -2552,10 +2552,6 @@ int CalcExtraMag(Player &player, int madd)
 {
 	if (player._pClass == HeroClass::Sorcerer)
 		return madd /= 5;
-	if (IsAnyOf(player._pClass, HeroClass::Rogue, HeroClass::Monk))
-		return madd += madd / 2;
-	if (player._pClass == HeroClass::Bard)
-		return madd += (madd / 4) + (madd / 2);
 	if (player._pClass == HeroClass::Barbarian)
 		return 0;
 
