@@ -439,6 +439,7 @@ set(libdevilutionx_SRCS
   Source/controls/keymapper.cpp
   Source/engine/animationinfo.cpp
   Source/engine/demomode.cpp
+  Source/engine/direction.cpp
   Source/engine/load_cel.cpp
   Source/engine/random.cpp
   Source/engine/render/automap_render.cpp
