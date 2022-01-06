@@ -3796,8 +3796,6 @@ void ModifyPlrVit(int p, int l)
 	int ms = l << 6;
 	if (player._pClass == HeroClass::Warrior || player._pClass == HeroClass::Barbarian)
 		ms *= 2;
-	if (player._pClass == HeroClass::Sorcerer)
-		ms /= 2;
 
 	player._pHPBase += ms;
 	player._pMaxHPBase += ms;

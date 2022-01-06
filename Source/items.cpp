@@ -2805,11 +2805,9 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		vadd += (vadd / 4);
 	} else if (IsAnyOf(player._pClass, HeroClass::Rogue, HeroClass::Monk, HeroClass::Bard) || (player._pClass == HeroClass::Sorcerer && player.tookAnointedShrine)) {
 		vadd += vadd / 2;
-	} else if (player._pClass == HeroClass::Sorcerer) {
-		vadd /= 2;
 	}
 	if (player._pClass == HeroClass::Sorcerer && player.tookAnointedShrine) {
-		ihp += (player._pBaseVit << 6) / 2 + (player._pLevel << 6) + 256;
+		ihp += (player._pLevel << 6) + (14 << 6);
 		ihp += (player._pMagic << 6) / 2;
 	}
 	ihp += (vadd << 6); // BUGFIX: blood boil can cause negative shifts here (see line 757)
