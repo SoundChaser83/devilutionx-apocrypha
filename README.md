@@ -30,8 +30,6 @@ Substantially nerfed Sorcerer's mana gain per magic point
 
 Sorcerer now has drastically reduced mana costs for almost every spell
 
-Nerfed Sorcerer's life gain per vitality point
-
 Melee classes (i.e. Warrior, Monk, Bard, and Barbarian) all gain armor class per character level, but armor class is reduced to zero for these classes while moving. Rogue and Sorcerer still work normally.
 
 Chance to avoid monster attacks now capped at 75% at all levels
