@@ -68,6 +68,8 @@ All of the wonderful things from DevilutionX v1.3.0 including...
 - Countless bug fixes
 - And many more...
 
+These are just some of the changes present in Apocrypha. For more complete documentation of all changes, see the [release notes](https://github.com/SoundChaser83/devilutionx-apocrypha/releases).
+
 # How to Install
 
 Note: You'll need access to the data from the original game. If you don't have an original CD then you can [buy Diablo from GoG.com](https://www.gog.com/game/diablo).
