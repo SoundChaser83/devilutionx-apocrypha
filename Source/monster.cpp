@@ -1516,7 +1516,7 @@ void MonsterAttackPlayer(int i, int pnum, int hit, int minDam, int maxDam)
 			}
 		}
 	}
-	int dam = (minDam << 6) + GenerateRnd((maxDam - minDam + 1) << 6);
+	int dam = (minDam << 6) + (GenerateRnd(maxDam - minDam + 1) << 6);
 	dam = std::max(dam + (player._pIGetHit << 6), 64);
 	if (pnum == MyPlayerId) {
 		if (player.wReflections > 0)
