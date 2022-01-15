@@ -4290,7 +4290,10 @@ void ProcessMonsters()
 		}
 		if ((monster._mFlags & MFLAG_NOHEAL) == 0 && monster._mhitpoints < monster._mmaxhp && monster._mhitpoints >> 6 > 0) {
 			if (monster.mLevel > 1) {
-				monster._mhitpoints += monster.mLevel / 2;
+				if (monster.MType->mtype != MT_DIABLO && monster.MType->mtype != MT_NAKRUL)
+					monster._mhitpoints += monster.mLevel / 2;
+				else
+					monster._mhitpoints += monster.mLevel / 4;
 			} else {
 				monster._mhitpoints += monster.mLevel;
 			}
