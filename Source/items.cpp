@@ -2653,10 +2653,22 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	}
 
 	if ((player._pClass == HeroClass::Rogue || player._pClass == HeroClass::Sorcerer) && player.tookAnointedShrine) {
-		iflgs |= ISPL_FASTESTATTACK;
 		iflgs |= ISPL_FASTESTRECOVER;
 		iflgs |= ISPL_FASTBLOCK;
-		sadd += 50;
+
+		if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Sword || player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Sword)
+			iflgs |= ISPL_FASTESTATTACK;
+		if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Mace || player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Mace)
+			iflgs |= ISPL_FASTESTATTACK;
+		if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Axe || player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Axe)
+			iflgs |= ISPL_FASTESTATTACK;
+		if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Staff || player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Staff)
+			iflgs |= ISPL_FASTESTATTACK;
+
+		if (player._pClass == HeroClass::Rogue)
+			sadd += 30;
+		else
+			sadd += 35;
 	}
 
 	if (mind == 0 && maxd == 0) {
