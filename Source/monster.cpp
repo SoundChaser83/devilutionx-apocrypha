@@ -1517,6 +1517,17 @@ void MonsterAttackPlayer(int i, int pnum, int hit, int minDam, int maxDam)
 		}
 	}
 	int dam = (minDam << 6) + GenerateRnd(((maxDam - minDam) << 6) + 1);
+
+	if (monster.MType->mtype == MT_NAKRUL && sgGameInitInfo.nDifficulty == DIFF_HELL) {     // A hacky fix to avoid overflow on Hell Na-Krul's damage
+		int nakrulHellMinDam = 326;
+		int nakrulHellMaxDam = 406;
+		if (IsUberRoomOpened) {
+			nakrulHellMinDam = 166;
+			nakrulHellMaxDam = 206;
+		}
+		dam = (nakrulHellMinDam << 6) + GenerateRnd(((nakrulHellMaxDam - nakrulHellMinDam) << 6) + 1);
+	}
+
 	dam = std::max(dam + (player._pIGetHit << 6), 64);
 	if (pnum == MyPlayerId) {
 		if (player.wReflections > 0)
