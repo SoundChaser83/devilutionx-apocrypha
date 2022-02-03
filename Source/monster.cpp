@@ -3271,7 +3271,12 @@ void MegaAi(int i)
 
 void DiabloAi(int i)
 {
-	AiRangedAvoidance(i, MIS_DIABAPOCA, false, 40, 0);
+	if (sgGameInitInfo.nDifficulty == DIFF_NORMAL)
+		AiRangedAvoidance(i, MIS_DIABAPOCA, false, 40, 0);
+	else if (sgGameInitInfo.nDifficulty == DIFF_NIGHTMARE)
+		AiRangedAvoidance(i, MIS_DIABAPOCA, false, 70, 0);
+	else
+		AiRangedAvoidance(i, MIS_DIABAPOCA, false, 120, 0);
 }
 
 void LazarusAi(int i)
