@@ -668,6 +668,7 @@ void InitLevelChange(int pnum)
 	RemovePlrMissiles(pnum);
 	player.pManaShield = false;
 	player.wReflections = 0;
+	player._pSpellFlags &= ~0x2;          // Removes Rage on level change
 	// share info about your manashield when another player joins the level
 	if (pnum != MyPlayerId && myPlayer.pManaShield)
 		NetSendCmd(true, CMD_SETSHIELD);
@@ -3336,6 +3337,7 @@ void ProcessPlayers()
 
 	for (int pnum = 0; pnum < MAX_PLRS; pnum++) {
 		auto &player = Players[pnum];
+
 		if (player.plractive && currlevel == player.plrlevel && (pnum == MyPlayerId || !player._pLvlChanging)) {
 			CheckCheatStats(player);
 
@@ -3349,7 +3351,7 @@ void ProcessPlayers()
 				}
 				if (player.tookAlluringShrine && currlevel != 0)
 					ApplyPlrDamage(pnum, 0, 0, 80);
-				if ((player._pSpellFlags & 2) == 2 && currlevel != 0)                   // Life drain from Barbarian's Rage skill
+				if ((player._pSpellFlags & 2) == 2 && currlevel != 0)                    // Life drain from Barbarian's Rage skill
 					ApplyPlrDamage(pnum, 0, 0, player._pMaxHP / 100 - 30);
 				if ((player._pIFlags & ISPL_NOMANA) != 0 && player._pManaBase > 0) {
 					player._pManaBase -= player._pMana;
