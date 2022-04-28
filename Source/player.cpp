@@ -2971,11 +2971,7 @@ void StartPlrHit(int pnum, int dam, bool forcehit)
 	player.Say(HeroSpeech::ArghClang);
 
 	drawhpflag = true;
-	if (player._pClass == HeroClass::Barbarian) {
-		if (dam >> 6 < player._pLevel + player._pLevel / 4 && !forcehit) {
-			return;
-		}
-	} else if (dam >> 6 < player._pLevel && !forcehit) {
+	if (dam >> 6 < player._pLevel && !forcehit) {
 		return;
 	} else if (player.tookAlluringShrine) {
 		return;
