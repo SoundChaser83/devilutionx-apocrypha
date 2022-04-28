@@ -2771,12 +2771,6 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	player._pISplLvlAdd = spllvladd;
 	player._pIEnAc = enac;
 
-	if (player._pClass == HeroClass::Barbarian) {
-		mr += player._pLevel;
-		fr += player._pLevel;
-		lr += player._pLevel;
-	}
-
 	if ((player._pSpellFlags & 4) == 4) {
 		mr -= player._pLevel;
 		fr -= player._pLevel;
