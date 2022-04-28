@@ -689,6 +689,7 @@ void InitLevelChange(int pnum)
 	}
 
 	ClrPlrPath(player);
+	CalcPlrInv(player, true);
 	player.destAction = ACTION_NONE;
 	player._pLvlChanging = true;
 
