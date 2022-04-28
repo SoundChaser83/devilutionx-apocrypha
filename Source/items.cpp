@@ -2749,12 +2749,8 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		}
 	} else if (player._pClass == HeroClass::Barbarian) {
 
-		int tempStrength = (player._pSpellFlags & 2) == 2 ? 2 * player._pStrength : player._pStrength;  // Treats strength as doubled when Rage is active
-		if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Axe || player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Axe) {
-			player._pDamageMod = player._pLevel * tempStrength / 75;
-		} else if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Mace || player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Mace) {
-			player._pDamageMod = player._pLevel * tempStrength / 75;
-		} else if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Bow || player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Bow) {
+		int tempStrength = (player._pSpellFlags & 2) == 2 ? 2 * player._pStrength : 0;  // Treats strength as doubled/zero when Rage is active/inactive
+		if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Bow || player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Bow) {
 			player._pDamageMod = player._pLevel * tempStrength / 300;
 		} else {
 			player._pDamageMod = player._pLevel * tempStrength / 100;
