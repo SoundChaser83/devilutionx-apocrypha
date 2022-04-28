@@ -2764,13 +2764,6 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		} else {
 			player._pDamageMod = player._pLevel * player._pStrength / 100;
 		}
-
-		if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Shield || player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Shield) {
-			if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Shield)
-				player._pIAC -= player.InvBody[INVLOC_HAND_LEFT]._iAC / 2;
-			else if (player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Shield)
-				player._pIAC -= player.InvBody[INVLOC_HAND_RIGHT]._iAC / 2;
-		}
 	} else if (player._pClass == HeroClass::Sorcerer && player.tookAnointedShrine) {
 		player._pDamageMod = player._pLevel * (player._pStrength + player._pMagic) / 100;
 	} else {
