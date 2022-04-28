@@ -94,7 +94,7 @@ int BlockBonuses[enum_size<HeroClass>::value] = {
 	10,
 	25,
 	25,
-	30,
+	10,
 };
 
 /** Specifies the experience point limit of each level. */
