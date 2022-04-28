@@ -2690,14 +2690,8 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	}
 
 	if ((player._pSpellFlags & 2) == 2) {
-		sadd += 2 * player._pLevel;
-		dadd += player._pLevel + player._pLevel / 2;
-		vadd += 2 * player._pLevel;
-	}
-	if ((player._pSpellFlags & 4) == 4) {
-		sadd -= 2 * player._pLevel;
-		dadd -= player._pLevel + player._pLevel / 2;
-		vadd -= 2 * player._pLevel;
+		sadd += 2 * (player._pBaseStr + sadd) - player._pBaseStr;
+		btohit += 30;
 	}
 
 	player._pIMinDam = mind;

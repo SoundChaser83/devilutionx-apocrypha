@@ -991,6 +991,18 @@ bool PlrHitMonst(int pnum, int m, bool adjacentDamage = false)
 	}
 
 	int skdam = 0;
+	if ((player._pSpellFlags & 2) == 2) {            // Life leech from Barbarian's Rage skill
+		skdam = dam;
+		player._pHitPoints += skdam;
+		if (player._pHitPoints > player._pMaxHP) {
+			player._pHitPoints = player._pMaxHP;
+		}
+		player._pHPBase += skdam;
+		if (player._pHPBase > player._pMaxHPBase) {
+			player._pHPBase = player._pMaxHPBase;
+		}
+		drawhpflag = true;
+	}
 	if ((player._pIFlags & ISPL_RNDSTEALLIFE) != 0) {
 		skdam = GenerateRnd(dam / 8);
 		player._pHitPoints += skdam;
@@ -3337,6 +3349,8 @@ void ProcessPlayers()
 				}
 				if (player.tookAlluringShrine && currlevel != 0)
 					ApplyPlrDamage(pnum, 0, 0, 80);
+				if ((player._pSpellFlags & 2) == 2)
+					ApplyPlrDamage(pnum, 0, 0, player._pMaxHP / 100 - 30);
 				if ((player._pIFlags & ISPL_NOMANA) != 0 && player._pManaBase > 0) {
 					player._pManaBase -= player._pMana;
 					player._pMana = 0;

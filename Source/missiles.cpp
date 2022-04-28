@@ -1274,9 +1274,7 @@ void InitMissiles()
 			auto &missile = Missiles[mi];
 			if (missile._mitype == MIS_BLODBOIL) {
 				if (missile._misource == MyPlayerId) {
-					int missingHP = myPlayer._pMaxHP - myPlayer._pHitPoints;
 					CalcPlrItemVals(myPlayer, true);
-					ApplyPlrDamage(MyPlayerId, 0, 1, missingHP + missile.var2);
 				}
 			}
 		}
@@ -2589,7 +2587,7 @@ void AddBlodboil(Missile &missile, Point /*dst*/, Direction /*midir*/)
 	player._pSpellFlags |= 2;
 	missile.var2 = tmp;
 	int lvl = player._pLevel * 2;
-	missile._mirange = lvl + 10 * missile._mispllvl + 245;
+	missile._mirange = lvl + 10 * missile._mispllvl + 400;
 	CalcPlrItemVals(player, true);
 	force_redraw = 255;
 	player.Say(HeroSpeech::Aaaaargh);
@@ -3947,21 +3945,17 @@ void MI_Blodboil(Missile &missile)
 	int id = missile._misource;
 	auto &player = Players[id];
 
-	int hpdif = player._pMaxHP - player._pHitPoints;
-
 	if ((player._pSpellFlags & 2) != 0) {
 		player._pSpellFlags &= ~0x2;
-		player._pSpellFlags |= 4;
+		missile._miDelFlag = true;
 		int lvl = player._pLevel * 2;
 		missile._mirange = lvl + 10 * missile._mispllvl + 245;
 	} else {
 		player._pSpellFlags &= ~0x4;
 		missile._miDelFlag = true;
-		hpdif += missile.var2;
 	}
 
 	CalcPlrItemVals(player, true);
-	ApplyPlrDamage(id, 0, 1, hpdif);
 	force_redraw = 255;
 	player.Say(HeroSpeech::HeavyBreathing);
 }
