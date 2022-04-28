@@ -526,9 +526,6 @@ struct Player {
 				else
 					tmac -= tmac / 4;
 			}
-			if (isMelee && _pClass == HeroClass::Barbarian) {
-				tmac -= monsterArmor / 8;
-			}
 		}
 		if (tmac < 0)
 			tmac = 0;
