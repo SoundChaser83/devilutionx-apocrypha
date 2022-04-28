@@ -2689,10 +2689,8 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		}
 	}
 
-	if ((player._pSpellFlags & 2) == 2) {
-		sadd += 2 * (player._pBaseStr + sadd) - player._pBaseStr;
+	if ((player._pSpellFlags & 2) == 2)                 // Grants additional 30% chance to hit while Rage is active
 		btohit += 30;
-	}
 
 	player._pIMinDam = mind;
 	player._pIMaxDam = maxd;
@@ -2749,14 +2747,15 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		}
 	} else if (player._pClass == HeroClass::Barbarian) {
 
+		int tempStrength = (player._pSpellFlags & 2) == 2 ? 2 * player._pStrength : player._pStrength;  // Treats strength as doubled when Rage is active
 		if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Axe || player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Axe) {
-			player._pDamageMod = player._pLevel * player._pStrength / 75;
+			player._pDamageMod = player._pLevel * tempStrength / 75;
 		} else if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Mace || player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Mace) {
-			player._pDamageMod = player._pLevel * player._pStrength / 75;
+			player._pDamageMod = player._pLevel * tempStrength / 75;
 		} else if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Bow || player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Bow) {
-			player._pDamageMod = player._pLevel * player._pStrength / 300;
+			player._pDamageMod = player._pLevel * tempStrength / 300;
 		} else {
-			player._pDamageMod = player._pLevel * player._pStrength / 100;
+			player._pDamageMod = player._pLevel * tempStrength / 100;
 		}
 	} else if (player._pClass == HeroClass::Sorcerer && player.tookAnointedShrine) {
 		player._pDamageMod = player._pLevel * (player._pStrength + player._pMagic) / 100;
