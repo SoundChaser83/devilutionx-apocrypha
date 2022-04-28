@@ -1266,20 +1266,6 @@ void InitMissiles()
 		}
 	}
 
-	if ((myPlayer._pSpellFlags & 2) == 2 || (myPlayer._pSpellFlags & 4) == 4) {
-		myPlayer._pSpellFlags &= ~0x2;
-		myPlayer._pSpellFlags &= ~0x4;
-		for (int i = 0; i < ActiveMissileCount; ++i) {
-			int mi = ActiveMissiles[i];
-			auto &missile = Missiles[mi];
-			if (missile._mitype == MIS_BLODBOIL) {
-				if (missile._misource == MyPlayerId) {
-					CalcPlrItemVals(myPlayer, true);
-				}
-			}
-		}
-	}
-
 	ActiveMissileCount = 0;
 	for (int i = 0; i < MAXMISSILES; i++) {
 		AvailableMissiles[i] = i;

@@ -3349,7 +3349,7 @@ void ProcessPlayers()
 				}
 				if (player.tookAlluringShrine && currlevel != 0)
 					ApplyPlrDamage(pnum, 0, 0, 80);
-				if ((player._pSpellFlags & 2) == 2)
+				if ((player._pSpellFlags & 2) == 2)                               // Life drain from Barbarian's Rage skill
 					ApplyPlrDamage(pnum, 0, 0, player._pMaxHP / 100 - 30);
 				if ((player._pIFlags & ISPL_NOMANA) != 0 && player._pManaBase > 0) {
 					player._pManaBase -= player._pMana;
