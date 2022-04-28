@@ -2310,7 +2310,7 @@ void SetPlrAnims(Player &player)
 	player._pSFNum = PlrGFXAnimLens[static_cast<std::size_t>(pc)][10];
 
 	auto gn = static_cast<PlayerWeaponGraphic>(player._pgfxnum & 0xF);
-	if (pc == HeroClass::Warrior) {
+	if (pc == HeroClass::Warrior || pc == HeroClass::Barbarian) {
 		if (gn == PlayerWeaponGraphic::Bow) {
 			if (leveltype != DTYPE_TOWN) {
 				player._pNFrames = 8;
@@ -2378,21 +2378,6 @@ void SetPlrAnims(Player &player)
 		} else if (gn == PlayerWeaponGraphic::Staff) {
 			player._pAFrames = 16;
 			player._pAFNum = 11;
-		}
-	} else if (pc == HeroClass::Barbarian) {
-		if (gn == PlayerWeaponGraphic::Axe) {
-			player._pAFrames = 20;
-			player._pAFNum = 8;
-		} else if (gn == PlayerWeaponGraphic::Bow) {
-			if (leveltype != DTYPE_TOWN) {
-				player._pNFrames = 8;
-			}
-			player._pAFNum = 11;
-		} else if (gn == PlayerWeaponGraphic::Staff) {
-			player._pAFrames = 16;
-			player._pAFNum = 11;
-		} else if (gn == PlayerWeaponGraphic::Mace || gn == PlayerWeaponGraphic::MaceShield) {
-			player._pAFNum = 8;
 		}
 	}
 }
