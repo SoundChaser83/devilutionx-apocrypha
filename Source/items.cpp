@@ -2771,7 +2771,6 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 			else if (player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Shield)
 				player._pIAC -= player.InvBody[INVLOC_HAND_RIGHT]._iAC / 2;
 		}
-		player._pIAC += player._pLevel / 4;
 	} else if (player._pClass == HeroClass::Sorcerer && player.tookAnointedShrine) {
 		player._pDamageMod = player._pLevel * (player._pStrength + player._pMagic) / 100;
 	} else {
