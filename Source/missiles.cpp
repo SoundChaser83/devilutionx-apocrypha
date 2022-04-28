@@ -3931,6 +3931,11 @@ void MI_Blodboil(Missile &missile)
 	int id = missile._misource;
 	auto &player = Players[id];
 
+	if (player._pHitPoints <= 0) {
+		missile._miDelFlag = true;
+		return;
+	}
+
 	if ((player._pSpellFlags & 2) != 0) {
 		player._pSpellFlags &= ~0x2;
 		missile._miDelFlag = true;
