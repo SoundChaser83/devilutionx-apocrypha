@@ -2800,11 +2800,8 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	player._pFireResist = clamp(fr, 0, MAXRESIST);
 	player._pLghtResist = clamp(lr, 0, MAXRESIST);
 
-	if (player._pClass == HeroClass::Warrior) {
+	if (player._pClass == HeroClass::Warrior || player._pClass == HeroClass::Barbarian) {
 		vadd *= 2;
-	} else if (player._pClass == HeroClass::Barbarian) {
-		vadd += vadd;
-		vadd += (vadd / 4);
 	} else if (IsAnyOf(player._pClass, HeroClass::Rogue, HeroClass::Monk, HeroClass::Bard) || (player._pClass == HeroClass::Sorcerer && player.tookAnointedShrine)) {
 		vadd += vadd / 2;
 	}
