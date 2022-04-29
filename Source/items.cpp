@@ -2749,7 +2749,7 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		}
 	} else if (player._pClass == HeroClass::Barbarian) {
 
-		int tempStrength = (player._pSpellFlags & 2) == 2 ? 2 * player._pStrength : player._pStrength / 2;  // Treats strength as doubled/halved when Rage is active/inactive
+		int tempStrength = (player._pSpellFlags & 2) == 2 ? 3 * player._pStrength / 2 : player._pStrength / 2;  // Treats strength as 1.5x/0.5x when Rage is active/inactive
 		if (player.InvBody[INVLOC_HAND_LEFT]._itype == ItemType::Bow || player.InvBody[INVLOC_HAND_RIGHT]._itype == ItemType::Bow) {
 			player._pDamageMod = player._pLevel * tempStrength / 300;
 		} else {
