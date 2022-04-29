@@ -2689,8 +2689,8 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 		}
 	}
 
-	if ((player._pSpellFlags & 2) == 2) {            // Grants additional 30% chance to hit and 20 AC while Rage is active
-		btohit += 30;
+	if ((player._pSpellFlags & 2) == 2) {            // Grants additional 20% chance to hit and 20 AC while Rage is active
+		btohit += 20;
 		bac += 20;
 	}
 
