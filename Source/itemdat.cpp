@@ -210,7 +210,7 @@ const PLStruct ItemPrefixes[] = {
 	{ N_("Useless"),        { IPL_DAMP_CURSE,          100,    100 },        5,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  true,     false,      0,      0,      -8 },
 	{ N_("Bent"),           { IPL_DAMP_CURSE,           50,     75 },        3,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  true,     false,      0,      0,      -4 },
 	{ N_("Weak"),           { IPL_DAMP_CURSE,           25,     45 },        1,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  true,     false,      0,      0,      -3 },
-	{ N_("Jagged"),         { IPL_DAMP,                 20,     35 },        4,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  true,     true,     250,    450,       3 },
+	{ N_("Jagged"),         { IPL_DAMP,                 20,     35 },        1,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  true,     true,     250,    450,       3 },
 	{ N_("Deadly"),         { IPL_DAMP,                 36,     50 },        6,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  true,     true,     500,    700,       4 },
 	{ N_("Heavy"),          { IPL_DAMP,                 51,     65 },        9,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  true,     true,     750,    950,       5 },
 	{ N_("Vicious"),        { IPL_DAMP,                 66,     80 },       12,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_EVIL, true,     true,    1000,   1450,       8 },
