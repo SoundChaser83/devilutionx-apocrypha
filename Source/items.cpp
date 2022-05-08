@@ -311,32 +311,32 @@ _sfx_id ItemDropSnds[] = {
 /** Maps from Griswold premium item number to a quality level delta as added to the base quality level. */
 int premiumlvladd[] = {
 	// clang-format off
-	-5,
-	-5,
-	-5,
-	-5,
-	-5,
-	-5,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
 	// clang-format on
 };
 /** Maps from Griswold premium item number to a quality level delta as added to the base quality level. */
 int premiumLvlAddHellfire[] = {
 	// clang-format off
-	-5,
-	-5,
-	-5,
-	-5,
-	-5,
-	-5,
-	-5,
-	-5,
-	-5,
-	-5,
-	-5,
-	-5,
-	-5,
-	-5,
-	-5,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
 	// clang-format on
 };
 
