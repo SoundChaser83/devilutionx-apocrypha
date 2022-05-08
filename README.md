@@ -46,6 +46,8 @@ Search, Reflect, Warp, and Teleport removed from the game
 
 Monk's inherent skill is now Infravision instead of Search
 
+Barbarian and his Rage skill have been completely reworked. He is now slightly less powerful than Warrior by default, but Rage now grants a 20 second period of 100% life leech, increased damage, AC and chance to hit at the cost of experiencing life degen.
+
 All farmable permanent stat-increasing mechanics removed from the game (e.g. elixirs, oils, stat-increasing shrines), and Spectral Elixir is now one-time use. Feel free to grab the mushroom as much as you want though.
 
 Powerful item affixes have had their levels raised substantially. You can still find them, but don't expect to farm Griswold anymore!
@@ -74,7 +76,7 @@ These are just some of the changes present in Apocrypha. For more complete docum
 
 Note: You'll need access to the data from the original game. If you don't have an original CD then you can [buy Diablo from GoG.com](https://www.gog.com/game/diablo).
 
-Download the [latest Apocrypha release](https://github.com/SoundChaser83/devilutionx-apocrypha/releases/download/v0.3.5/apocrypha_windows_x64.zip) and extract the contents to a location of your choosing. If you have the GOG version of Diablo, run `apocrypha.exe` and enjoy! If you have the original Diablo CD:
+Download the [latest Apocrypha release](https://github.com/SoundChaser83/devilutionx-apocrypha/releases/download/v0.4.0/apocrypha_windows_x64.zip) and extract the contents to a location of your choosing. If you have the GOG version of Diablo, run `apocrypha.exe` and enjoy! If you have the original Diablo CD:
 - Copy `DIABDAT.MPQ` from the CD and paste it into your Apocrypha folder.
 - To run the Diablo: Hellfire expansion you will need to do the same for `hellfire.mpq`, `hfmonk.mpq`, `hfmusic.mpq`, `hfvoice.mpq` from your Hellfire CD.
 
