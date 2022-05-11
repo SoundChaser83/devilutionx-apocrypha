@@ -486,6 +486,9 @@ void PlaceUniqueMonst(int uniqindex, int miniontype, int bosspacksize)
 		monster.mLevel = monster.MData->mLevel + 5;
 	}
 
+	if (uniqindex == UMT_ZHAR)        // Buffing Zhar's level because he's too easy otherwise. Also gives him a better loot drop.
+		monster.mLevel = 25;
+
 	monster.mExp *= 2;
 	monster.mName = pgettext("monster", uniqueMonsterData.mName);
 	monster._mmaxhp = uniqueMonsterData.mmaxhp << 6;
