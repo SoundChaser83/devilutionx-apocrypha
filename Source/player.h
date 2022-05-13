@@ -414,6 +414,18 @@ struct Player {
 	void Reset();
 
 	/**
+	 * @brief Used to calculate the HP to magic conversion for Dilapated Tome
+	 */
+	int GetHPtoMagic() const
+	{
+		int hpToMagic = ((_pMaxHP >> 6) - (_pMaxMana >> 6)) / 2;
+		if (hpToMagic < 0)
+			hpToMagic = 0;
+
+		return hpToMagic;
+	}
+
+	/**
 	 * @brief Return player's armor value
 	 */
 	int GetArmor() const
