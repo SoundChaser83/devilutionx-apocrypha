@@ -2937,7 +2937,6 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	if (player.tookDilapShrine) {
 		player._pHitPoints = std::max(player._pHitPoints - (player.GetHPtoMagic() << 6), 64);
 		player._pMaxHP -= player.GetHPtoMagic() << 6;
-		player._pDexterity = 0;
 	}
 	if (player.tookFrigidShrine) {
 		player._pMana = 0;

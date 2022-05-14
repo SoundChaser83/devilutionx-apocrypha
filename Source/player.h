@@ -458,6 +458,8 @@ struct Player {
 			hper += 65;
 		if (_pClass == HeroClass::Rogue && tookAnointedShrine)
 			hper += 50;
+		if (tookDilapShrine)
+			hper = 0;
 		return hper;
 	}
 
@@ -483,6 +485,9 @@ struct Player {
 			hper += 20;
 		else if (_pClass == HeroClass::Warrior || _pClass == HeroClass::Bard)
 			hper += 10;
+
+		if (tookDilapShrine)
+			hper = 0;
 		return hper;
 	}
 
@@ -505,6 +510,9 @@ struct Player {
 			hper += 20;
 		else if (_pClass == HeroClass::Bard)
 			hper += 10;
+
+		if (tookDilapShrine)
+			hper += GetHPtoMagic();
 		return hper;
 	}
 
