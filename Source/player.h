@@ -511,8 +511,15 @@ struct Player {
 		else if (_pClass == HeroClass::Bard)
 			hper += 10;
 
-		if (tookDilapShrine)
-			hper += GetHPtoMagic();
+		if (tookDilapShrine) {
+			int hpManaDiff = _pMaxHPBase - _pMaxManaBase;
+
+			if (hpManaDiff < 0)
+				hpManaDiff = 0;
+
+			hper += hpManaDiff;
+		}
+
 		return hper;
 	}
 

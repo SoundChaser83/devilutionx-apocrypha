@@ -2809,10 +2809,11 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	player._pMaxMana = imana + player._pMaxManaBase;
 	player._pMana = std::min(imana + player._pManaBase, player._pMaxMana);
 
+	int hpToMagic = player.GetHPtoMagic();
 	if (player.tookDilapShrine) {
-		player._pMagic += player.GetHPtoMagic();
+		player._pMagic += hpToMagic;
 
-		imana += CalcExtraMag(player, player.GetHPtoMagic()) << 6;
+		imana += CalcExtraMag(player, hpToMagic) << 6;
 
 		player._pMaxMana = imana + player._pMaxManaBase;
 		player._pMana = std::min(imana + player._pManaBase, player._pMaxMana);
@@ -2935,8 +2936,8 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	}
 
 	if (player.tookDilapShrine) {
-		player._pHitPoints = std::max(player._pHitPoints - (player.GetHPtoMagic() << 6), 64);
-		player._pMaxHP -= player.GetHPtoMagic() << 6;
+		player._pHitPoints = std::max(player._pHitPoints - (hpToMagic << 6), 64);
+		player._pMaxHP -= hpToMagic << 6;
 	}
 	if (player.tookFrigidShrine) {
 		player._pMana = 0;
