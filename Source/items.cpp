@@ -2809,7 +2809,7 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 	player._pMaxMana = imana + player._pMaxManaBase;
 	player._pMana = std::min(imana + player._pManaBase, player._pMaxMana);
 
-	int hpToMagic = player.GetHPtoMagic();
+	int hpToMagic = std::max(((player._pMaxHP >> 6) - (player._pMaxMana >> 6)) / 2, 0);
 	if (player.tookDilapShrine) {
 		player._pMagic += hpToMagic;
 
