@@ -1597,7 +1597,7 @@ void AddLightningWall(Missile &missile, Point dst, Direction /*midir*/)
 {
 	UpdateMissileVelocity(missile, dst, 16);
 	missile._miAnimFrame = GenerateRnd(8) + 1;
-	missile._mirange = 255 * (missile._mispllvl + 1);
+	missile._mirange = 160 * (missile._mispllvl + 1);
 	if (missile._misource < 0) {
 		missile.var1 = missile.position.start.x;
 		missile.var2 = missile.position.start.y;
