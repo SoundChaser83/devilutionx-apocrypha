@@ -221,7 +221,7 @@ void InitMonster(Monster &monster, Direction rd, int mtype, Point position)
 			monster._mmaxhp += 64;
 		monster._mhitpoints = monster._mmaxhp;
 		monster.mLevel += 15;
-		monster.mExp = 2 * (monster.mExp + 1000);
+		monster.mExp = std::min(2 * (monster.mExp + 1000), 65535);
 		monster.mHit += NIGHTMARE_TO_HIT_BONUS;
 		monster.mMinDamage = 2 * (monster.mMinDamage + 2);
 		monster.mMaxDamage = 2 * (monster.mMaxDamage + 2);
@@ -237,7 +237,7 @@ void InitMonster(Monster &monster, Direction rd, int mtype, Point position)
 			monster._mmaxhp += 192;
 		monster._mhitpoints = monster._mmaxhp;
 		monster.mLevel += 30;
-		monster.mExp = 4 * (monster.mExp + 1000);
+		monster.mExp = std::min(4 * (monster.mExp + 1000), 65535);
 		monster.mHit += HELL_TO_HIT_BONUS;
 		monster.mMinDamage = 4 * monster.mMinDamage + 6;
 		monster.mMaxDamage = 4 * monster.mMaxDamage + 6;
@@ -489,7 +489,7 @@ void PlaceUniqueMonst(int uniqindex, int miniontype, int bosspacksize)
 	if (uniqindex == UMT_ZHAR)        // Buffing Zhar's level because he's too easy otherwise. Also gives him a better loot drop.
 		monster.mLevel = 25;
 
-	monster.mExp *= 2;
+	monster.mExp = std::min(monster.mExp * 2, 65535);
 	monster.mName = pgettext("monster", uniqueMonsterData.mName);
 	monster._mmaxhp = uniqueMonsterData.mmaxhp << 6;
 
@@ -533,7 +533,7 @@ void PlaceUniqueMonst(int uniqindex, int miniontype, int bosspacksize)
 			monster._mmaxhp += 64;
 		monster.mLevel += 15;
 		monster._mhitpoints = monster._mmaxhp;
-		monster.mExp = 2 * (monster.mExp + 1000);
+		monster.mExp = std::min(2 * (monster.mExp + 1000), 65535);
 		monster.mMinDamage = 2 * (monster.mMinDamage + 2);
 		monster.mMaxDamage = 2 * (monster.mMaxDamage + 2);
 		monster.mMinDamage2 = 2 * (monster.mMinDamage2 + 2);
@@ -546,7 +546,7 @@ void PlaceUniqueMonst(int uniqindex, int miniontype, int bosspacksize)
 			monster._mmaxhp += 192;
 		monster.mLevel += 30;
 		monster._mhitpoints = monster._mmaxhp;
-		monster.mExp = 4 * (monster.mExp + 1000);
+		monster.mExp = std::min(4 * (monster.mExp + 1000), 65535);
 		monster.mMinDamage = 4 * monster.mMinDamage + 6;
 		monster.mMaxDamage = 4 * monster.mMaxDamage + 6;
 		monster.mMinDamage2 = 4 * monster.mMinDamage2 + 6;
