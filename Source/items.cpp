@@ -1236,7 +1236,7 @@ void GetItemPower(Item &item, int minlvl, int maxlvl, affix_item_type flgs, bool
 
 void GetStaffSpell(Item &item, int lvl, bool onlygood)
 {
-	if (!gbIsHellfire && GenerateRnd(4) == 0) {
+	if (GenerateRnd(2) == 0) {
 		GetItemPower(item, lvl / 2, lvl, PLT_STAFF, onlygood);
 		return;
 	}
