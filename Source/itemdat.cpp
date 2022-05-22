@@ -278,7 +278,7 @@ const PLStruct ItemPrefixes[] = {
 	{ N_("Bountiful"),      { IPL_CHARGES,               3,      3 },        9,                                  PLT_STAFF                     , GOE_ANY,  false,    true,    3000,   3000,       3 },
 	{ N_("Flaming"),        { IPL_FIREDAM,               1,     10 },        7,                       PLT_WEAP | PLT_STAFF                     , GOE_ANY,  false,    true,    5000,   5000,       2 },
 	{ N_("Lightning"),      { IPL_LIGHTDAM,              2,     20 },       18,                       PLT_WEAP | PLT_STAFF                     , GOE_ANY,  false,    true,   10000,  10000,       2 },
-	{ N_("Jester's"),       { IPL_JESTERS,               1,      1 },        7,                       PLT_WEAP | PLT_STAFF                     , GOE_ANY,  false,    true,    1200,   1200,       3 },
+	{ N_("Jester's"),       { IPL_JESTERS,               1,      1 },       60,                       PLT_WEAP | PLT_STAFF                     , GOE_ANY,  false,    true,    1200,   1200,       3 },
 	{ N_("Crystalline"),    { IPL_CRYSTALLINE,          30,     70 },       -1,                       PLT_WEAP                                 , GOE_ANY,  false,    true,    1000,   3000,       3 },
 	// TRANSLATORS: Item prefix section end.
 	{ N_("Doppelganger's"), { IPL_DOPPELGANGER,         81,     95 },       11,                       PLT_WEAP | PLT_STAFF                     , GOE_ANY,  false,    true,    2000,   2400,      10 },
