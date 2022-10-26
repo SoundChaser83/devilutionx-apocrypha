@@ -2836,12 +2836,6 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 			player._pBlockFlag = true;
 			player._pIFlags |= ISPL_FASTBLOCK;
 		}
-		if (player.InvBody[INVLOC_HAND_LEFT].isEmpty() && player.InvBody[INVLOC_HAND_RIGHT].isEmpty())
-			player._pBlockFlag = true;
-		if (player.InvBody[INVLOC_HAND_LEFT]._iClass == ICLASS_WEAPON && player.InvBody[INVLOC_HAND_LEFT]._iLoc != ILOC_TWOHAND && player.InvBody[INVLOC_HAND_RIGHT].isEmpty())
-			player._pBlockFlag = true;
-		if (player.InvBody[INVLOC_HAND_RIGHT]._iClass == ICLASS_WEAPON && player.InvBody[INVLOC_HAND_RIGHT]._iLoc != ILOC_TWOHAND && player.InvBody[INVLOC_HAND_LEFT].isEmpty())
-			player._pBlockFlag = true;
 	}
 
 	ItemType weaponItemType = ItemType::None;
