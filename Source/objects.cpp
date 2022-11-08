@@ -2463,7 +2463,7 @@ void OperateSlainHero(int pnum, int i)
 	auto &player = Players[pnum];
 
 	if (player._pClass == HeroClass::Warrior) {
-		CreateMagicArmor(Objects[i].position, ItemType::MediumArmor, ICURS_SPLINT_MAIL, false, true);
+		CreateMagicArmor(Objects[i].position, ItemType::HeavyArmor, ICURS_BREAST_PLATE, false, true);
 	} else if (player._pClass == HeroClass::Rogue) {
 		CreateMagicWeapon(Objects[i].position, ItemType::Bow, ICURS_LONG_WAR_BOW, false, true);
 	} else if (player._pClass == HeroClass::Sorcerer) {
