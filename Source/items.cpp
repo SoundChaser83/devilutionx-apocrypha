@@ -2683,7 +2683,7 @@ void CalcPlrItemVals(Player &player, bool loadgfx)
 			maxd = 3;
 		}
 
-		if (player._pClass == HeroClass::Monk) {
+		if (player._pClass == HeroClass::Monk && player.InvBody[INVLOC_HAND_LEFT].isEmpty() && player.InvBody[INVLOC_HAND_RIGHT].isEmpty()) {
 			mind = std::max(mind, player._pLevel / 2);
 			maxd = std::max(maxd, (int)player._pLevel);
 		}
