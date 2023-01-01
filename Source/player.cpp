@@ -2983,10 +2983,6 @@ void StartPlrHit(int pnum, int dam, bool forcehit)
 	constexpr int ZenFlags = ISPL_FASTRECOVER | ISPL_FASTERRECOVER | ISPL_FASTESTRECOVER;
 	if ((player._pIFlags & ZenFlags) == ZenFlags) { // if multiple hitrecovery modes are present the skipping of frames can go so far, that they skip frames that would skip. so the additional skipping thats skipped. that means we can't add the different modes together.
 		skippedAnimationFrames = 4;
-	} else if (player._pClass == HeroClass::Monk && ((player.InvBody[INVLOC_HAND_LEFT].isEmpty() && player.InvBody[INVLOC_HAND_RIGHT].isEmpty()) ||
-		(player.InvBody[INVLOC_HAND_LEFT]._iClass == ICLASS_WEAPON && player.InvBody[INVLOC_HAND_LEFT]._iLoc != ILOC_TWOHAND && player.InvBody[INVLOC_HAND_RIGHT].isEmpty()) ||
-		(player.InvBody[INVLOC_HAND_RIGHT]._iClass == ICLASS_WEAPON && player.InvBody[INVLOC_HAND_RIGHT]._iLoc != ILOC_TWOHAND && player.InvBody[INVLOC_HAND_LEFT].isEmpty()))) { // Forces Monk to have base hit recovery when not wielding a staff or shield.
-		skippedAnimationFrames = 0;
 	} else if ((player._pIFlags & ISPL_FASTESTRECOVER) != 0) {
 		skippedAnimationFrames = 3;
 	} else if ((player._pIFlags & ISPL_FASTERRECOVER) != 0) {
