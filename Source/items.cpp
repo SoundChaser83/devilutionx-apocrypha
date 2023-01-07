@@ -2192,7 +2192,7 @@ void SpawnOnePremium(int i, int plvl, int playerId)
 			itemValue = 0;
 			break;
 		}
-		itemValue = itemValue * 4 / 5; // avoids forced int > float > int conversion
+		itemValue = itemValue * 2 / 5; // avoids forced int > float > int conversion
 
 		count++;
 	} while (keepGoing
