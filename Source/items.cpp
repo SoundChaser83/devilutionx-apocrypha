@@ -2192,7 +2192,7 @@ void SpawnOnePremium(int i, int plvl, int playerId)
 			itemValue = 0;
 			break;
 		}
-		itemValue = itemValue * 2 / 5; // avoids forced int > float > int conversion
+		itemValue = 0; // avoids forced int > float > int conversion........changed to 0 to prevent Griswold from rerolling items based on cost
 
 		count++;
 	} while (keepGoing
