@@ -370,7 +370,7 @@ const PLStruct ItemSuffixes[] = {
 	{  N_("thorns"),        { IPL_THORNS,              1,        3 },        1, PLT_ARMO | PLT_SHLD                                            , GOE_ANY,  false,    true,     500,    500,       2 },
 	{  N_("corruption"),    { IPL_NOMANA,              0,        0 },        5, PLT_ARMO | PLT_SHLD | PLT_WEAP                                 , GOE_EVIL, false,    false,  -1000,  -1000,       2 },
 	{  N_("thieves"),       { IPL_ABSHALFTRAP,         0,        0 },       11, PLT_ARMO | PLT_SHLD |                                  PLT_MISC, GOE_ANY,  false,    true,    1500,   1500,       2 },
-	{  N_("the bear"),      { IPL_KNOCKBACK,           0,        0 },        5,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  false,    true,     750,    750,       2 },
+	{  N_("the bear"),      { IPL_KNOCKBACK,           0,        0 },       25,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  false,    true,     750,    750,       2 },
 	{  N_("the bat"),       { IPL_STEALMANA,           3,        3 },        8,                       PLT_WEAP | PLT_STAFF                     , GOE_ANY,  false,    true,    7500,   7500,       3 },
 	{  N_("vampires"),      { IPL_STEALMANA,           5,        5 },       19,                       PLT_WEAP | PLT_STAFF                     , GOE_ANY,  false,    true,   15000,  15000,       3 },
 	{  N_("the leech"),     { IPL_STEALLIFE,           3,        3 },        8,                       PLT_WEAP | PLT_STAFF                     , GOE_ANY,  false,    true,    7500,   7500,       3 },
