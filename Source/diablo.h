@@ -18,7 +18,7 @@
 
 namespace devilution {
 
-#define GAME_ID (gbIsHellfire ? (gbIsSpawn ? LoadBE32("HSHR") : LoadBE32("HRTL")) : (gbIsSpawn ? LoadBE32("DSHR") : LoadBE32("DRTL")))
+#define GAME_ID LoadBE32("DXAP")
 
 #define NUMLEVELS 25
 
