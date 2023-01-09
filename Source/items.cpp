@@ -1470,6 +1470,7 @@ _unique_items CheckUnique(Item &item, int lvl, int uper, bool recreate)
 
 	AdvanceRndSeed();
 	uint8_t itemData = 0;
+	numu = std::max(1, GenerateRnd(numu) + 1);     // Makes it so a random valid unique item will be spawned rather than only the unique with highest ID#
 	while (numu > 0) {
 		if (uok[itemData])
 			numu--;
