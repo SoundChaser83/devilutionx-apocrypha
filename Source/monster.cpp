@@ -2029,21 +2029,26 @@ bool IsTileSafe(const Monster &monster, Point position)
 
 	bool fearsFire = (monster.mMagicRes & IMMUNE_FIRE) == 0;
 	bool fearsLightning = (monster.mMagicRes & IMMUNE_LIGHTNING) == 0;
+	bool isTileSafe = true;
 
 	for (int j = 0; j < ActiveMissileCount; j++) {
 		uint8_t mi = ActiveMissiles[j];
 		auto &missile = Missiles[mi];
-		if (missile.position.tile == position) {
-			if (fearsFire && missile._mitype == MIS_FIREWALL) {
-				return false;
-			}
-			if (fearsLightning && missile._mitype == MIS_LIGHTWALL) {
-				return false;
-			}
+		if (missile.position.tile == monster.position.tile && missile._mitype == MIS_FIREWALL) {
+			return true;
+		}
+		if (missile.position.tile == monster.position.tile && missile._mitype == MIS_LIGHTWALL) {
+			return true;
+		}
+		if (fearsFire && missile._mitype == MIS_FIREWALL) {
+			isTileSafe = false;
+		}
+		if (fearsLightning && missile._mitype == MIS_LIGHTWALL) {
+			isTileSafe = false;
 		}
 	}
 
-	return true;
+	return isTileSafe;
 }
 
 /**
