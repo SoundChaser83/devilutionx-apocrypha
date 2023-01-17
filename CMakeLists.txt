@@ -373,7 +373,6 @@ set(libdevilutionx_SRCS
   Source/drlg_l2.cpp
   Source/drlg_l3.cpp
   Source/drlg_l4.cpp
-  Source/dthread.cpp
   Source/dx.cpp
   Source/encrypt.cpp
   Source/engine.cpp

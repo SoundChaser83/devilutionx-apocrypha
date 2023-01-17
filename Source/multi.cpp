@@ -11,7 +11,6 @@
 
 #include "DiabloUI/diabloui.h"
 #include "diablo.h"
-#include "dthread.h"
 #include "engine/point.hpp"
 #include "engine/random.hpp"
 #include "menu.h"
@@ -321,7 +320,7 @@ void SendPlayerInfo(int pnum, _cmd_id cmd)
 	std::unique_ptr<byte[]> pkplr { new byte[sizeof(PlayerPack)] };
 
 	PackPlayer(reinterpret_cast<PlayerPack *>(pkplr.get()), Players[MyPlayerId], true);
-	dthread_send_delta(pnum, cmd, std::move(pkplr), sizeof(PlayerPack));
+	multi_send_zero_packet(pnum, cmd, pkplr.get(), sizeof(PlayerPack));
 }
 
 dungeon_type InitLevelType(int l)
@@ -392,7 +391,6 @@ void HandleEvents(_SNETEVENT *pEvt)
 			gbSomebodyWonGameKludge = true;
 
 		sgbSendDeltaTbl[pEvt->playerid] = false;
-		dthread_remove_player(pEvt->playerid);
 
 		if (gbDeltaSender == pEvt->playerid)
 			gbDeltaSender = MAX_PLRS;
@@ -673,7 +671,6 @@ void NetClose()
 
 	sgbNetInited = false;
 	nthread_cleanup();
-	DThreadCleanup();
 	tmsg_cleanup();
 	EventHandler(false);
 	SNetLeaveGame(3);
@@ -722,7 +719,6 @@ bool NetInit(bool bSinglePlayer)
 		gbShouldValidatePackage = false;
 		sync_init();
 		nthread_start(sgbPlayerTurnBitTbl[MyPlayerId]);
-		dthread_start();
 		tmsg_start();
 		sgdwGameLoops = 0;
 		sgbSentThisCycle = 0;
