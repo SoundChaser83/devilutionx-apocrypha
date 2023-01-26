@@ -76,7 +76,7 @@ These are just some of the changes present in Apocrypha. For more complete docum
 
 Note: You'll need access to the data from the original game. If you don't have an original CD then you can [buy Diablo from GoG.com](https://www.gog.com/game/diablo).
 
-Download the [latest Apocrypha release](https://github.com/SoundChaser83/devilutionx-apocrypha/releases/download/v0.5.3/apocrypha_windows_x64.zip) and extract the contents to a location of your choosing. If you have the GOG version of Diablo, run `apocrypha.exe` and enjoy! If you have the original Diablo CD:
+Download the [latest Apocrypha release](https://github.com/SoundChaser83/devilutionx-apocrypha/releases/download/v0.5.4/apocrypha_windows_x64.zip) and extract the contents to a location of your choosing. If you have the GOG version of Diablo, run `apocrypha.exe` and enjoy! If you have the original Diablo CD:
 - Copy `DIABDAT.MPQ` from the CD and paste it into your Apocrypha folder.
 - To run the Diablo: Hellfire expansion you will need to do the same for `hellfire.mpq`, `hfmonk.mpq`, `hfmusic.mpq`, `hfvoice.mpq` from your Hellfire CD.
 
