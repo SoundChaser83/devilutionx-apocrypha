@@ -26,6 +26,8 @@ Six new powerful shrines, all available starting from level 1
 
 Loot fixes for nightmare and hell difficulties, making normal difficulty no longer the ideal place to find the best loot in the game
 
+Fixed a bug preventing some unique items from generating, meaning all unique items are now obtainable in both single player and multiplayer
+
 Substantially nerfed Sorcerer's mana gain per magic point
 
 Sorcerer now has drastically reduced mana costs for almost every spell
