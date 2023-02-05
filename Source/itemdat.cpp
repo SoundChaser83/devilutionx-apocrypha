@@ -386,10 +386,10 @@ const PLStruct ItemSuffixes[] = {
 	{  N_("stability"),     { IPL_FASTRECOVER,         2,        2 },       10, PLT_ARMO |                                             PLT_MISC, GOE_ANY,  false,    true,    4000,   4000,       4 },
 	{  N_("harmony"),       { IPL_FASTRECOVER,         3,        3 },       20, PLT_ARMO |                                             PLT_MISC, GOE_ANY,  false,    true,    8000,   8000,       8 },
 	{  N_("blocking"),      { IPL_FASTBLOCK,           1,        1 },       45,            PLT_SHLD                                            , GOE_ANY,  false,    true,    4000,   4000,       4 },
-	{  N_("devastation"),   { IPL_DEVASTATION,         1,        1 },        1,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  false,    true,    1200,   1200,       3 },
+	{  N_("devastation"),   { IPL_DEVASTATION,         1,        1 },       -1,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  false,    true,    1200,   1200,       3 },
 	{  N_("decay"),         { IPL_DECAY,             150,      250 },        1,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  false,    true,     200,    200,       2 },
 	// TRANSLATORS: Item suffix section end.
-	{  N_("peril"),         { IPL_PERIL,               1,        1 },        5,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  false,    true,     500,    500,       1 },
+	{  N_("peril"),         { IPL_PERIL,               1,        1 },       -1,                       PLT_WEAP | PLT_STAFF | PLT_BOW           , GOE_ANY,  false,    true,     500,    500,       1 },
 	{  "",                  { IPL_INVALID,             0,        0 },        0, 0                                                              , GOE_ANY,  false,    false,      0,      0,       0 },
 	// clang-format on
 };
