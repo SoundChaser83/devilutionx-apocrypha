@@ -34,7 +34,7 @@ Sorcerer now has drastically reduced mana costs for almost every spell
 
 Melee classes (i.e. Warrior, Monk, Bard, and Barbarian) all gain armor class per character level, but armor class is reduced to zero for these classes while moving. Rogue and Sorcerer still work normally.
 
-Chance to avoid monster attacks now capped at 75% at all levels
+Chance to avoid monster melee attacks now capped at 75% at all levels
 
 Attacks from unique monsters + Diablo now ignore 75% of player's armor class
 
