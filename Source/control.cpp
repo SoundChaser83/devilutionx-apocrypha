@@ -768,10 +768,6 @@ void DrawSpellList(const Surface &out)
 			}
 			PrintSBookSpellType(out, spellListItem.location, _("Spell"), spellColor);
 			strcpy(infostr, fmt::format(_("{:s} Spell"), pgettext("spell", spellDataItem.sNameText)).c_str());
-			if (spellId == SPL_HBOLT) {
-				strcpy(tempstr, _("Damages undead only"));
-				AddPanelString(tempstr);
-			}
 			if (spellLevel == 0)
 				strcpy(tempstr, _("Spell Level 0 - Unusable"));
 			else

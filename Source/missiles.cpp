@@ -197,20 +197,20 @@ void MoveMissilePos(Missile &missile)
 bool MonsterMHit(int pnum, int m, int mindam, int maxdam, int dist, missile_id t, bool shift)
 {
 	auto &monster = Monsters[m];
+	uint8_t mor = monster.mMagicRes;
+	missile_resistance mir = MissilesData[t].mResist;
 
 	bool resist = false;
 	if (monster.mtalkmsg != TEXT_NONE
 	    || monster._mhitpoints >> 6 <= 0
-	    || (t == MIS_HBOLT && monster.MData->mMonstClass != MonsterClass::Undead)) {
+	    || (t == MIS_HBOLT && (monster.MData->mMonstClass != MonsterClass::Undead) &&
+			!(((mor & IMMUNE_MAGIC) != 0) && ((mor & IMMUNE_FIRE) != 0) && ((mor & IMMUNE_LIGHTNING) != 0))))
 		return false;
-	}
+	
 	if (monster.MType->mtype == MT_ILLWEAV && monster._mgoal == MGOAL_RETREAT)
 		return false;
 	if (monster._mmode == MonsterMode::Charge)
 		return false;
-
-	uint8_t mor = monster.mMagicRes;
-	missile_resistance mir = MissilesData[t].mResist;
 
 	if (((mor & IMMUNE_MAGIC) != 0 && mir == MISR_MAGIC)
 	    || ((mor & IMMUNE_FIRE) != 0 && mir == MISR_FIRE)
