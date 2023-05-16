@@ -930,8 +930,8 @@ void GetDamageAmt(int i, int *mind, int *maxd)
 		*maxd = 4 + (2 * myPlayer._pLevel);
 		break;
 	case SPL_WAVE:
-		*mind = 6 * (myPlayer._pLevel + 1);
-		*maxd = *mind + 54;
+		*mind = 2 * (myPlayer._pLevel + 1);
+		*maxd = 2 * (myPlayer._pLevel + 10);
 		break;
 	case SPL_NOVA:
 	case SPL_IMMOLAT:
@@ -954,9 +954,9 @@ void GetDamageAmt(int i, int *mind, int *maxd)
 		*maxd = *mind * 6;
 		break;
 	case SPL_ELEMENT:
-		*mind = ScaleSpellEffect(6 * myPlayer._pLevel + 4, sl);
+		*mind = ScaleSpellEffect(6 * myPlayer._pLevel + 4, sl) / 2;
 		/// BUGFIX: add here '*mind /= 2;'
-		*maxd = ScaleSpellEffect(6 * myPlayer._pLevel + 40, sl);
+		*maxd = ScaleSpellEffect(6 * (myPlayer._pLevel + 18) + 4, sl) / 2;
 		/// BUGFIX: add here '*maxd /= 2;'
 		break;
 	case SPL_CBOLT:
