@@ -2160,7 +2160,7 @@ void AddManashield(Missile &missile, Point /*dst*/, Direction /*midir*/)
 
 void AddFiremove(Missile &missile, Point dst, Direction /*midir*/)
 {
-	missile._midam = GenerateRnd(10) + Players[missile._misource]._pLevel + 1;
+	missile._midam = 2 * (GenerateRnd(10) + Players[missile._misource]._pLevel + 1);
 	UpdateMissileVelocity(missile, dst, 16);
 	missile._mirange = 255;
 	missile.position.tile += Displacement { 1, 1 };
