@@ -3128,7 +3128,7 @@ void ApplyPlrDamage(int pnum, int dam, int minHP /*= 0*/, int frac /*= 0*/, int 
 	int totalDamage = (dam << 6) + frac;
 	if (totalDamage > 0 && player.pManaShield) {
 		int8_t manaShieldLevel = player._pSplLvl[SPL_MANASHIELD];
-		if (manaShieldLevel > 0) {
+		if (manaShieldLevel >= 0) {
 			totalDamage += totalDamage / -3;
 		}
 		if (pnum == MyPlayerId)
@@ -3139,7 +3139,7 @@ void ApplyPlrDamage(int pnum, int dam, int minHP /*= 0*/, int frac /*= 0*/, int 
 			totalDamage = 0;
 		} else {
 			totalDamage -= player._pMana;
-			if (manaShieldLevel > 0) {
+			if (manaShieldLevel >= 0) {
 				totalDamage += totalDamage / 2;
 			}
 			player._pMana = 0;
