@@ -19,6 +19,7 @@
 #include "minitext.h"
 #include "options.h"
 #include "plrmsg.h"
+#include "quests.h"
 #include "stores.h"
 #include "town.h"
 #include "towners.h"
@@ -999,6 +1000,7 @@ void CheckNaKrulNotes(Player &player)
 	}
 
 	Players[MyPlayerId].Say(HeroSpeech::JustWhatIWasLookingFor, 10);
+	IsNakrulNoteComplete = true;
 
 	for (auto note : notes) {
 		if (idx != note) {

@@ -26,6 +26,7 @@
 #include "missiles.h"
 #include "monster.h"
 #include "options.h"
+#include "quests.h"
 #include "setmaps.h"
 #include "stores.h"
 #include "themes.h"
@@ -3925,6 +3926,10 @@ bool OperateNakrulBook(int s)
 void OperateStoryBook(int pnum, int i)
 {
 	if (Objects[i]._oSelFlag == 0 || deltaload || qtextflag || pnum != MyPlayerId) {
+		return;
+	}
+	if (currlevel == 24 && !IsNakrulNoteComplete) {
+		Players[MyPlayerId].Say(HeroSpeech::ICantUseThisYet, 10);
 		return;
 	}
 	Objects[i]._oAnimFrame = Objects[i]._oVar4;
