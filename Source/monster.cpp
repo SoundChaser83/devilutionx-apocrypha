@@ -368,6 +368,13 @@ void PlaceGroup(int mtype, int num, UniqueMonsterPack uniqueMonsterPack, int lea
 	}
 }
 
+void InitTRNForUniqueMonster(Monster &monster)
+{
+	char filestr[64];
+	sprintf(filestr, "Monsters\\Monsters\\%s.TRN", UniqueMonstersData[monster._uniqtype - 1].mTrnName);
+	monster.uniqueTRN = LoadFileInMem<uint8_t>(filestr);
+}
+
 void PlaceUniqueMonst(int uniqindex, int miniontype, int bosspacksize)
 {
 	auto &monster = Monsters[ActiveMonsterCount];
@@ -549,11 +556,7 @@ void PlaceUniqueMonst(int uniqindex, int miniontype, int bosspacksize)
 		monster.mMaxDamage2 = 4 * monster.mMaxDamage2 + 6;
 	}
 
-	char filestr[64];
-	sprintf(filestr, "Monsters\\Monsters\\%s.TRN", uniqueMonsterData.mTrnName);
-	LoadFileInMem(filestr, &LightTables[256 * (uniquetrans + 19)], 256);
-	monster.uniqueTRN = LoadFileInMem<uint8_t>(filestr);
-
+	InitTRNForUniqueMonster(monster);
 	monster._uniqtrans = uniquetrans++;
 
 	if (uniqueMonsterData.customHitpoints != 0) {
@@ -4580,6 +4583,9 @@ void SyncMonsterAnim(Monster &monster)
 		monster.mName = pgettext("monster", UniqueMonstersData[monster._uniqtype - 1].mName);
 	else
 		monster.mName = pgettext("monster", monster.MData->mName);
+
+	if (monster._uniqtype != 0)
+		InitTRNForUniqueMonster(monster);
 
 	MonsterGraphic graphic = MonsterGraphic::Stand;
 
