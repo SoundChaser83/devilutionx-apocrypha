@@ -54,6 +54,7 @@
 #include "plrmsg.h"
 #include "qol/common.h"
 #include "qol/itemlabels.h"
+#include "quests.h"
 #include "restrict.h"
 #include "setmaps.h"
 #include "sound.h"
@@ -1548,6 +1549,7 @@ bool StartGame(bool bNewGame, bool bSinglePlayer)
 			InitQuests();
 			InitPortals();
 			InitDungMsgs(Players[MyPlayerId]);
+			IsNakrulNoteComplete = false;
 			IsUberRoomOpened = false;
 		}
 		giNumberOfLevels = gbIsHellfire ? 25 : 17;

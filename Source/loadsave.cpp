@@ -26,6 +26,7 @@
 #include "missiles.h"
 #include "mpqapi.h"
 #include "pfile.h"
+#include "quests.h"
 #include "stores.h"
 #include "utils/endian.hpp"
 #include "utils/language.h"
@@ -779,7 +780,7 @@ void LoadQuest(LoadHelper *file, int i)
 	quest._qslvl = static_cast<_setlevels>(file->NextLE<uint8_t>());
 	quest._qidx = static_cast<quest_id>(file->NextLE<uint8_t>());
 	if (gbIsHellfireSaveGame) {
-		file->Skip(1); // Alignment
+		IsNakrulNoteComplete = file->NextBool8();
 		IsUberRoomOpened = file->NextBool8();
 		quest._qmsg = static_cast<_speech_id>(file->NextLE<int32_t>());
 	} else {
@@ -1427,7 +1428,7 @@ void SaveQuest(SaveHelper *file, int i)
 	file->WriteLE<uint8_t>(quest._qslvl);
 	file->WriteLE<uint8_t>(quest._qidx);
 	if (gbIsHellfire) {
-		file->Skip(1); // Alignment
+		file->WriteLE<uint8_t>(IsNakrulNoteComplete);
 		file->WriteLE<uint8_t>(IsUberRoomOpened);
 		file->WriteLE<int32_t>(quest._qmsg);
 	} else {

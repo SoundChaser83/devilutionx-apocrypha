@@ -33,6 +33,7 @@ Quest Quests[MAXQUESTS];
 Point ReturnLvlPosition;
 dungeon_type ReturnLevelType;
 int ReturnLevel;
+bool IsNakrulNoteComplete = false;
 
 /** Contains the data related to each quest_id. */
 QuestData QuestsData[] = {

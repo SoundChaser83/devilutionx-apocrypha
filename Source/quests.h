@@ -77,6 +77,7 @@ extern Quest Quests[MAXQUESTS];
 extern Point ReturnLvlPosition;
 extern dungeon_type ReturnLevelType;
 extern int ReturnLevel;
+extern bool IsNakrulNoteComplete;
 
 void InitQuests();
 
