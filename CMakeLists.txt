@@ -448,6 +448,7 @@ set(libdevilutionx_SRCS
   Source/engine/render/dun_render.cpp
   Source/engine/render/text_render.cpp
   Source/engine/surface.cpp
+  Source/engine/trn.cpp
   Source/qol/autopickup.cpp
   Source/qol/common.cpp
   Source/qol/monhealthbar.cpp
