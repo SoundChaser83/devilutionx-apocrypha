@@ -2804,7 +2804,7 @@ int AddMissile(Point src, Point dst, Direction midir, missile_id mitype, mienemy
 	missile._mlid = NO_LIGHT;
 	missile.lastCollisionTargetHash = 0;
 
-	if (micaster == TARGET_PLAYERS) {
+	if (id != -1 && micaster == TARGET_PLAYERS) {
 		Monster &monster = Monsters[id];
 		if (monster._uniqtype != 0) {
 			missile._miUniqTrans = monster._uniqtrans + 1;
